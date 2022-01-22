@@ -10,7 +10,7 @@ class Background {
             h: height
         }
         this.gameSize = gameSize
-        this.bgImage = 'demo.jpeg'
+        this.bgImage = 'bgdemo.png'
         this.imageInstance = undefined
         this.init()
 
@@ -19,14 +19,16 @@ class Background {
     init() {
         this.imageInstance = new Image()
         this.imageInstance.src = `img/${this.bgImage}`
+        this.imageInstance.onload = () => {
+            this.draw()
+        }
     }
 
     draw() {
         
         this.ctx.drawImage(this.imageInstance, this.bgPos.x, this.bgPos.y, this.bgSize.w, this.bgSize.h)
+        //this.ctx.drawImage(this.imageInstance, 0, 0, 1200, 900)
 
-        this.ctx.lineWidth = 20
-        this.ctx.strokeStyle = 'green'
-        this.ctx.strokeRect(200, 0, 200, 200)
+        
     }
 }

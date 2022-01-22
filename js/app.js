@@ -27,7 +27,7 @@ const alienHack = {
         document.querySelector('#myCanvas').setAttribute('height', this.gameSize.h)
     },
     createBackGround() {
-        this.background = new Background(this.ctx, 0, 100, 200, 200, this.gameSize)
+        this.background = new Background(this.ctx, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
 
     drawAll() {
