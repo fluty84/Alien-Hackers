@@ -1,11 +1,13 @@
 * {
     margin: 0;
     padding: 0;
-   
-    
+
+
 }
 
 #myCanvas {
-    background-color: blue;
-    margin: 0 auto;
+  
+    margin: 100px auto;
+    display: block;
+
 }

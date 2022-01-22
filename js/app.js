@@ -1,15 +1,18 @@
 const alienHack = {
     appName: 'ALIEN HACK',
-    authors: ['Guillermo Perez','Eduardo Gordillo'],
+    authors: ['Guillermo Perez', 'Eduardo Gordillo'],
     version: '1.0.0',
     license: 'GNU',
     gameSize: { w: undefined, h: undefined },
     ctx: undefined,
-    grid: undefined,
+    background: undefined,
     init() {
         this.setContext()
         this.setSize()
+        this.createBackGround()
         this.drawAll()
+
+
     },
     setContext() {
         this.ctx = document.querySelector('#myCanvas').getContext('2d')
@@ -18,21 +21,21 @@ const alienHack = {
     setSize() {
         this.gameSize = {
             w: 1200,
-            h: 600
+            h: 900
         }
         document.querySelector('#myCanvas').setAttribute('width', this.gameSize.w)
         document.querySelector('#myCanvas').setAttribute('height', this.gameSize.h)
     },
+    createBackGround() {
+        this.background = new Background(this.ctx, 0, 100, 200, 200, this.gameSize)
+    },
+
     drawAll() {
-        this.drawLinearRectangle1B
+        this.background.draw()
+
 
     },
 
-    drawLinearRectangle1B() { //pruebas borrar
 
-        this.ctx.lineWidth = 20
-        this.ctx.strokeStyle = 'green'
-        this.ctx.strokeRect(200, 0, 200, 200)
-    },
 
 }
