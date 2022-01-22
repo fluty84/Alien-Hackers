@@ -52,6 +52,9 @@ const alienHack = {
             this.gameBoard.draw()
             this.player.draw()
             this.enemy.draw()
+            this.player.sendPosition()
+            
+            
         }, 40)
     },
     clearAll() {

@@ -16,6 +16,7 @@ class Player {
             h: gameHeight
         }
         this.init()
+        this.actualPlayerPos = []
     }
 
     init() {
@@ -24,6 +25,9 @@ class Player {
         this.draw()
         this.setEventHandlers()
         this.move()
+        
+        
+        
 
     }
 
@@ -62,6 +66,13 @@ class Player {
             key === 'ArrowLeft' ? this.playerPos.x -= 100 : null
             key === 'ArrowUp' ? this.playerPos.y -= 100 : null
             key === 'ArrowDown' ? this.playerPos.y += 100 : null
+
+            
         })
+    }
+
+    sendPosition(){
+        this.actualPlayerPos = this.playerPos
+        console.log(this.actualPlayerPos)
     }
 }
