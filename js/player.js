@@ -1,19 +1,19 @@
 class Player {
     constructor(ctx, posX, posY, width, height, gameWidth, gameHeight) {
         this.ctx = ctx
-        this.playerPos = { 
-            x: posX, 
-            y: posY 
+        this.playerPos = {
+            x: posX,
+            y: posY
         }
-        this.playerSize = { 
-            w: width, 
-            h: height 
+        this.playerSize = {
+            w: width,
+            h: height
         }
         this.playerImage = 'player.png'
         this.imageInstance = undefined
-        this.gameSize = { 
-            w: gameWidth, 
-            h: gameHeight 
+        this.gameSize = {
+            w: gameWidth,
+            h: gameHeight
         }
         this.init()
     }
@@ -23,7 +23,8 @@ class Player {
         this.imageInstance.src = `img/${this.playerImage}`
         this.draw()
         this.setEventHandlers()
-        
+        this.move()
+
     }
 
     draw() {
@@ -36,18 +37,27 @@ class Player {
     }
 
     checkCollision() {
-        if (this.playerPos.x >= this.gameSize.w || this.playerPos.x <= -100) {
-            alert('Derecha e izquierda')
-        }
+
         console.log(this.playerPos.y)
-        if (this.playerPos.y || this.playerPos.y >= 500) {
-            alert('Arriba y abajo')
+        if (this.playerPos.x >= this.gameSize.w) {
+            this.playerPos.x -= 100
+        } else if (this.playerPos.x < 0) {
+            this.playerPos.x += 50
         }
+        if (this.playerPos.y < 0) {
+            this.playerPos.y += 100
+        } else if (this.playerPos.y >= 600) {
+            this.playerPos.y -= 100
+        } else {
+            return false
+        }
+
     }
 
     setEventHandlers() {
         document.addEventListener('keydown', event => {
             const { key } = event
+            
             key === 'ArrowRight' ? this.playerPos.x += 100 : null
             key === 'ArrowLeft' ? this.playerPos.x -= 100 : null
             key === 'ArrowUp' ? this.playerPos.y -= 100 : null
