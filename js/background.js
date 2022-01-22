@@ -25,10 +25,10 @@ class Background {
     }
 
     draw() {
-        
+
         this.ctx.drawImage(this.imageInstance, this.bgPos.x, this.bgPos.y, this.bgSize.w, this.bgSize.h)
         //this.ctx.drawImage(this.imageInstance, 0, 0, 1200, 900)
 
-        
+
     }
 }
