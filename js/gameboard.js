@@ -1,29 +1,29 @@
-class Background {
+class Gameboard {
     constructor(ctx, posX, posY, width, height, gameSize) {
         this.ctx = ctx
-        this.bgPos = {
+        this.gmPos = {
             x: posX,
             y: posY
         }
-        this.bgSize = {
+        this.gmSize = {
             w: width,
             h: height
         }
         this.gameSize = gameSize
-        this.bgImage = 'bgdemo.png'
+        this.gmImage = 'grid.png'
         this.imageInstance = undefined
         this.init()
     }
 
     init() {
         this.imageInstance = new Image()
-        this.imageInstance.src = `img/${this.bgImage}`
+        this.imageInstance.src = `img/${this.gmImage}`
         this.imageInstance.onload = () => {
             this.draw()
         }
     }
 
     draw() {
-        this.ctx.drawImage(this.imageInstance, this.bgPos.x, this.bgPos.y, 1200, 300)
+        this.ctx.drawImage(this.imageInstance, this.gmPos.x, this.gmPos.y, 1200, 600)
     }
 }
