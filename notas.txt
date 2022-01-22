@@ -1,0 +1,17 @@
+MECANICA DEL JUEGO 
+
+
+1 PLAYER se mueve mediante instrucciones de teclado
+
+2 Mientras se mueve un bucle vigila si su FOOTPRINT (posición + espacio adicional por todos sus lados) se encuentra sobre alguno de los HOTPOINTS (array con posiciones referenciadas de GAMEZONE).
+
+3 Si pisa un HOTPOINT su valor se traslada a la variable OBJETIVE de ENEMY
+
+4 Si ENEMY tiene una acción predeterminada para el valor actual de OBJETIVE la ejecuta
+
+
+MOVIMIENTO DE ENEMY
+
+1 ENEMY lanza su acción al ser TRUE una de los valores de OBJETIVE (¿Creamos un switch?)
+
+2 Se ejecuta enemy.WALK haciendo avanzar a ENEMY a su enemy.SPEED hasta el valor que pongamos en su ORDER.x ORDER.y (¿avanza SPEED casillas hasta que tu valor de X e Y sean iguales a ORDER.X y ORDER.Y?)
