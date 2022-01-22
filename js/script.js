@@ -1,1 +1,1 @@
-alienHack.init()
+window.onload = () => alienHack.init()

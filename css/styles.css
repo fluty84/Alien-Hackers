@@ -1,13 +1,9 @@
 * {
     margin: 0;
     padding: 0;
-
-
 }
 
 #myCanvas {
-  
-    margin: 100px auto;
+    margin: 0 auto;
     display: block;
-
 }

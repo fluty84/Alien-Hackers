@@ -5,14 +5,21 @@ const alienHack = {
     license: 'GNU',
     gameSize: { w: undefined, h: undefined },
     ctx: undefined,
+    // FPS: 60,
+    // framesCounter: 0,
     background: undefined,
     gameBoard: undefined,
+    player: undefined,
+    enemy: undefined,
     init() {
         this.setContext()
         this.setSize()
         this.createBackGround()
         this.createGameboard()
+        this.createPlayer()
+        this.createEnemy()
         this.drawAll()
+        // this.start()
     },
     setContext() {
         this.ctx = document.querySelector('#myCanvas').getContext('2d')
@@ -32,8 +39,22 @@ const alienHack = {
     createGameboard() {
         this.gameBoard = new Gameboard(this.ctx, 0, 300, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
+    createPlayer() {
+        this.player = new Player(this.ctx, 0, 0, 100, 200, this.gameSize.w, this.gameSize.h, this.gameSize)
+    },
+    createEnemy() {
+        this.enemy = new Enemy(this.ctx, 300, 300, this.gameSize.w, this.gameSize.h, this.gameSize)
+    },
     drawAll() {
-        this.background.draw()
-        this.gameBoard.draw()
+        setInterval(() => {
+            this.clearAll()
+            this.background.draw()
+            this.gameBoard.draw()
+            this.player.draw()
+            this.enemy.draw()
+        }, 40)
+    },
+    clearAll() {
+        this.ctx.clearRect(0, 0, this.gameSize.w, this.gameSize.h)
     }
 }
