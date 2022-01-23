@@ -11,6 +11,7 @@ const alienHack = {
     gameBoard: undefined,
     player: undefined,
     enemy: undefined,
+    enemies : [],
     init() {
         this.setContext()
         this.setSize()
@@ -19,6 +20,7 @@ const alienHack = {
         this.createPlayer()
         this.createEnemy()
         this.drawAll()
+        console.log(this.enemies)
         // this.start()
     },
     setContext() {
@@ -42,8 +44,9 @@ const alienHack = {
     createPlayer() {
         this.player = new Player(this.ctx, 0, 0, 100, 200, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
-    createEnemy() {
+    createEnemy() { //crea el enemigo y lo emuja a su array
         this.enemy = new Enemy(this.ctx, 300, 300, this.gameSize.w, this.gameSize.h, this.gameSize)
+        this.enemies.push(this.enemy)
     },
     drawAll() {
         setInterval(() => {
