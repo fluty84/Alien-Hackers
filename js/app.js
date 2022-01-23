@@ -5,13 +5,12 @@ const alienHack = {
     license: 'GNU',
     gameSize: { w: undefined, h: undefined },
     ctx: undefined,
-    // FPS: 60,
-    // framesCounter: 0,
+    FPS: 60,
+    framesCounter: 0,
     background: undefined,
     gameBoard: undefined,
     player: undefined,
-    enemy: undefined,
-    enemies : [],
+    enemy: [],
     init() {
         this.setContext()
         this.setSize()
@@ -20,8 +19,6 @@ const alienHack = {
         this.createPlayer()
         this.createEnemy()
         this.drawAll()
-        console.log(this.enemies)
-        // this.start()
     },
     setContext() {
         this.ctx = document.querySelector('#myCanvas').getContext('2d')
@@ -44,9 +41,10 @@ const alienHack = {
     createPlayer() {
         this.player = new Player(this.ctx, 0, 0, 100, 200, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
-    createEnemy() { //crea el enemigo y lo emuja a su array
-        this.enemy = new Enemy(this.ctx, 300, 300, this.gameSize.w, this.gameSize.h, this.gameSize)
-        this.enemies.push(this.enemy)
+    createEnemy() {
+        if (this.framesCounter % 90 === 0) {
+            this.enemy.push(new Enemy(this.ctx, 300, 300, this.gameSize.w, this.gameSize.h, this.gameSize))
+        }
     },
     drawAll() {
         setInterval(() => {
@@ -54,13 +52,24 @@ const alienHack = {
             this.background.draw()
             this.gameBoard.draw()
             this.player.draw()
-            this.enemy.draw()
-            this.player.sendPosition()
-            
-            
+            this.enemy.forEach(elm => elm.draw())
+            this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
+            this.isCollision()
         }, 40)
     },
     clearAll() {
         this.ctx.clearRect(0, 0, this.gameSize.w, this.gameSize.h)
+    },
+    clearEnemy() {
+        this.enemy = this.enemy.filter(elm => elm.enemyPos.x >= 0)
+    },
+    isCollision() {
+        return this.enemy.some(enm => {
+            return (   
+                this.player.playerPos.x + this.player.playerSize.w >= enm.enemyPos.x &&
+                this.player.playerPos.y + this.player.playerSize.h >= enm.enemyPos.y &&
+                this.player.playerPos.x <= enm.enemyPos.x + enm.enemySize.w
+            )
+        })
     }
 }

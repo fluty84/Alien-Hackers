@@ -17,6 +17,7 @@ class Player {
         }
         this.init()
         this.actualPlayerPos = []
+        this.lives = 5
     }
 
     init() {
@@ -26,9 +27,6 @@ class Player {
         this.setEventHandlers()
         this.move()
         
-        
-        
-
     }
 
     draw() {
@@ -37,12 +35,11 @@ class Player {
     }
 
     move() {
-        this.checkCollision()
+        this.frameCollision()
+        this.enemyColision()
     }
 
-    checkCollision() {
-
-        console.log(this.playerPos.y)
+    frameCollision() {
         if (this.playerPos.x >= this.gameSize.w) {
             this.playerPos.x -= 100
         } else if (this.playerPos.x < 0) {
@@ -55,24 +52,19 @@ class Player {
         } else {
             return false
         }
-
     }
 
+    enemyColision(){
+        alienHack.isCollision()? alert('colision') : console.log('no colision')
+    }
+    
     setEventHandlers() {
         document.addEventListener('keydown', event => {
             const { key } = event
-            
             key === 'ArrowRight' ? this.playerPos.x += 100 : null
             key === 'ArrowLeft' ? this.playerPos.x -= 100 : null
             key === 'ArrowUp' ? this.playerPos.y -= 100 : null
             key === 'ArrowDown' ? this.playerPos.y += 100 : null
-
-            
         })
-    }
-
-    sendPosition(){
-        this.actualPlayerPos = this.playerPos
-        console.log(this.actualPlayerPos)
     }
 }

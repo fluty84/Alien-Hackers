@@ -1,5 +1,5 @@
 class Enemy {
-    constructor(ctx, posX, posY, width, height, gameSize) {
+    constructor(ctx, posX, posY, gameWidth, gameHeight) {
         this.ctx = ctx
         this.enemyPos = {
             x: posX = 800,
@@ -9,9 +9,12 @@ class Enemy {
             w: 100,
             h: 100
         }
-        this.gameSize = gameSize
         this.enemyImage = 'enemy.png'
         this.imageInstance = undefined
+        this.gameSize = {
+            w: gameWidth,
+            h: gameHeight
+        }
         this.init()
     }
 
