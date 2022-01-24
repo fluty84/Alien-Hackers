@@ -29,4 +29,22 @@ class Enemy {
     draw() {
         this.ctx.drawImage(this.imageInstance, this.enemyPos.x, this.enemyPos.y, 100, 100)
     }
+
+    frameCollision() {
+        if (this.playerPos.x > 1101) { //salida derecha
+            //this.playerPos.x -= 100
+            return true
+        } else if (this.playerPos.x < 0) { //salida izquierda
+            this.playerPos.x = 0
+            return true
+        } else if (this.playerPos.y < 0) {
+            this.playerPos.y += 100
+            return true
+        } else if (this.playerPos.y > 500) {
+            //this.playerPos.y -= 100
+            return true
+        } else {
+            return false
+        }
+    }
 }

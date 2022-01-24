@@ -18,6 +18,7 @@ class Player {
         this.init()
         this.actualPlayerPos = []
         this.lives = 5
+        this.speed = 100
     }
 
     init() {
@@ -25,6 +26,7 @@ class Player {
         this.imageInstance.src = `img/${this.playerImage}`
         this.draw()
         this.move()
+        
     }
 
     draw() {
@@ -33,11 +35,13 @@ class Player {
     }
 
     frameCollision() {
-        if (this.playerPos.x > 1100) { //salida derecha
-            //this.playerPos.x -= 100
+
+        if (this.playerPos.x + this.speed > 1201) { //salida derecha
+            this.playerPos.x = 1100
             return true
-        } else if (this.playerPos.x < 0) { //salida izquierda
-            //this.playerPos.x += 100
+        } else if (this.playerPos.x + this.speed < 99) { //salida izquierda
+            console.log('me las piro por la izquierda')
+            this.playerPos.x = 0
             return true
         } else if (this.playerPos.y < 0) {
             //this.playerPos.y += 100
@@ -48,6 +52,7 @@ class Player {
         } else {
             return false
         }
+        
     }
     
     move() {
@@ -56,37 +61,42 @@ class Player {
             switch (key) {
                 case 'w':
                     if (this.frameCollision() || alienHack.isCollision()) {
-                        this.playerPos.y += 100
+                        this.playerPos.y += this.speed
                         console.log(this.playerPos)
                         return "up collision"
                     } else {
-                        this.playerPos.y -= 100
+                        console.log(this.playerPos)
+                        this.playerPos.y -= this.speed
                     }
                     break;
                 case 's': 
                     if (this.frameCollision() || alienHack.isCollision()) {
-                        this.playerPos.y -=100
+                        this.playerPos.y -= this.speed
                         console.log(this.playerPos.y)
                         return "down collision"
                     } else {
-                        this.playerPos.y += 100
+                        this.playerPos.y += this.speed
                         console.log(this.playerPos.y)
                     }
                     break;
                 case 'd':
                     if (this.frameCollision() || alienHack.isCollision()) {
-                        this.playerPos.x -=100
+                        this.playerPos.x -= this.speed
                         return "right collision"
                     } else {
-                        this.playerPos.x += 100
+                        console.log(this.playerPos)
+                        this.playerPos.x += this.speed
                     }
                     break;
                 case 'a':
                     if (this.frameCollision() || alienHack.isCollision()) {
-                        this.playerPos.x += 100
+                        this.playerPos.x = 0
+                        console.log('te empujo a la derecha')
                         return "left collision"
+                        
                     } else {
-                        this.playerPos.x -= 100
+                        console.log(this.playerPos)
+                        this.playerPos.x -= this.speed
                     }
                     
             }

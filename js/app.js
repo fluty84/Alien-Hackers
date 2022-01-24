@@ -51,10 +51,12 @@ const alienHack = {
             this.clearAll()
             this.background.draw()
             this.gameBoard.draw()
-            this.player.draw()
             this.enemy.forEach(elm => elm.draw())
             this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
             this.isCollision()
+            this.player.frameCollision()
+            this.player.draw()
+            
         }, 40)
     },
     clearAll() {
