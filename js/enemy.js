@@ -1,5 +1,5 @@
 class Enemy {
-    constructor(ctx, posX, posY, gameWidth, gameHeight) {
+    constructor(ctx, posX, posY, gameWidth, gameHeight,playerPos) {
         this.ctx = ctx
         this.enemyPos = {
             x: posX = 800,
@@ -15,34 +15,26 @@ class Enemy {
             w: gameWidth,
             h: gameHeight
         }
-        this.lives
+        this.lives = 5
+        this.playerPos = playerPos
         this.init()
     }
 
     init() {
         this.imageInstance = new Image()
         this.imageInstance.src = `img/${this.enemyImage}`
+        this.draw()
+        this.move()
     }
 
     draw() {
         this.ctx.drawImage(this.imageInstance, this.enemyPos.x, this.enemyPos.y, 100, 100)
     }
 
-    frameCollision() {
-        if (this.playerPos.x > 1101) { //salida derecha
-            //this.playerPos.x -= 100
-            return true
-        } else if (this.playerPos.x < 0) { //salida izquierda
-            this.playerPos.x = 0
-            return true
-        } else if (this.playerPos.y < 0) {
-            this.playerPos.y += 100
-            return true
-        } else if (this.playerPos.y > 500) {
-            //this.playerPos.y -= 100
-            return true
-        } else {
-            return false
+   
+    move(){
+        if(this.playerPos.x === 200 && this.playerPos.y === 300){
+            alert('te voy a hacer papilla')
         }
     }
 }

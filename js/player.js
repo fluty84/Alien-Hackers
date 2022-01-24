@@ -19,6 +19,7 @@ class Player {
         this.lives = 5
         this.speed = 100
         this.bullets = [];
+        
     }
 
     init() {
@@ -26,6 +27,7 @@ class Player {
         this.imageInstance.src = `img/${this.playerImage}`
         this.draw()
         this.move()
+        
     }
 
     draw() {

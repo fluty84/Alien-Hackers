@@ -16,7 +16,7 @@ class Bullets {
   
     draw() {
         this.ctx.beginPath()
-        this.ctx.fillStyle = "black"
+        this.ctx.fillStyle = "green"
         this.ctx.arc(this.posX, this.posY, this.radius, 0, Math.PI * 2)
         this.ctx.fill()
         this.ctx.closePath()
@@ -24,7 +24,7 @@ class Bullets {
     }
   
     move() {
-        this.posX += 2
+        this.posX += 120
         this.posY += 0
     }
 }

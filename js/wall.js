@@ -2,12 +2,12 @@ class Wall {
     constructor(ctx, posX, posY, gameWidth, gameHeight) {
         this.ctx = ctx
         this.wallPos = {
-            x: posX = 700,
-            y: posY = 400
+            x: posX,
+            y: posY
         }
         this.wallSize = {
             w: 100,
-            h: 300
+            h: 200
         }
         this.wallImage = 'wall.png'
         this.imageInstance = undefined

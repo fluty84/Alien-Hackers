@@ -46,10 +46,10 @@ const alienHack = {
         this.player = new Player(this.ctx, 0, 0, 100, 200, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
     createEnemy() {
-        this.enemy.push(new Enemy(this.ctx, 300, 300, this.gameSize.w, this.gameSize.h, this.gameSize))
+        this.enemy.push(new Enemy(this.ctx, 300, 300, this.gameSize.w, this.gameSize.h, this.gameSize, this.player.playerPos))
     },
     createWall() {
-        this.wall.push(new Wall(this.ctx, 200, 500, this.gameSize.w, this.gameSize.h, this.gameSize))
+        this.wall.push(new Wall(this.ctx, 600, 500, this.gameSize.w, this.gameSize.h, this.gameSize))
     },
     createBullets() {
         console.log('disparo')
@@ -68,6 +68,7 @@ const alienHack = {
             this.wallCollision()
             this.enemy.forEach(elm => elm.draw())
             this.wall.forEach(elm => elm.draw())
+            //this.enemy.move()
             this.player.draw()
         }, 40)
     },
@@ -91,17 +92,19 @@ const alienHack = {
         })
     }, 
     wallCollision(){
+        
+        //console.log(this.player.playerPos, this.wall[0].wallPos)
         this.wall.forEach(el => {
-            // console.log(playerPos, el.wallPos.x)
-            if(this.player.playerPos.x + this.player.playerSize.h + this.player.speed > el.wallPos.x){
-                console.log('me doy por la derecha con el muro')
-                this.player.playerPos.x - this.player.speed
-                return true
-                
-            } else if (this.player.playerPos.x < el.wallPos.x + el.wallSize.w){ 
-                console.log('me doy por la izquierda con el muro')
+
+            console.log(el.wallPos, this.player.playerPos)
+            if(this.player.playerPos.x < el.wallPos.x + el.wallSize.w &&
+            this.player.playerPos.x + this.player.playerSize.w > el.wallPos.x &&
+            this.player.playerPos.y < el.wallPos.y + el.wallSize.h &&
+            this.player.playerSize.h + this.player.playerPos.y > el.wallPos.y){
+                console.log(this.player.playerPos, el.wallPos, el.wallSize, this.player.playerSize)
+                alert('ostion')    // ¡colision detectada!
             }
-        });
+        })
     },
     setEventHandlers() {
         document.addEventListener('keydown', event => {
