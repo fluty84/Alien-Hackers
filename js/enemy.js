@@ -3,7 +3,7 @@ class Enemy {
         this.ctx = ctx
         this.enemyPos = {
             x: posX = 800,
-            y: posY = 700
+            y: posY = 400
         }
         this.enemySize = {
             w: 100,

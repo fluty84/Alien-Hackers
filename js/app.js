@@ -66,9 +66,10 @@ const alienHack = {
     isCollision() {
         return this.enemy.some(enm => {
             return (   
-                this.player.playerPos.x + this.player.playerSize.w >= enm.enemyPos.x &&
-                this.player.playerPos.y + this.player.playerSize.h >= enm.enemyPos.y &&
-                this.player.playerPos.x <= enm.enemyPos.x + enm.enemySize.w
+                this.player.playerPos.x >= enm.enemyPos.x &&                                    //Izquierda
+                this.player.playerPos.y + this.player.playerSize.h + 100 >= enm.enemyPos.y &&   //Arriba
+                this.player.playerPos.y + this.player.playerSize.h <= enm.enemyPos.y &&         //Abajo
+                this.player.playerPos.x <= enm.enemyPos.x + enm.enemySize.w - 100               //Derecha
             )
         })
     }
