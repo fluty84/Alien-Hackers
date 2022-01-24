@@ -1,9 +1,9 @@
 class Enemy {
-    constructor(ctx, posX, posY, gameWidth, gameHeight,playerPos) {
+    constructor(ctx, posX, posY, gameWidth, gameHeight, playerPos) {
         this.ctx = ctx
         this.enemyPos = {
-            x: posX = 800,
-            y: posY = 400
+            x: posX,
+            y: posY
         }
         this.enemySize = {
             w: 100,
@@ -30,10 +30,9 @@ class Enemy {
     draw() {
         this.ctx.drawImage(this.imageInstance, this.enemyPos.x, this.enemyPos.y, 100, 100)
     }
-
    
     move(){
-        if(this.playerPos.x === 200 && this.playerPos.y === 300){
+        if (this.playerPos.x === 200 && this.playerPos.y === 300) {
             alert('te voy a hacer papilla')
         }
     }

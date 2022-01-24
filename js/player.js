@@ -19,7 +19,6 @@ class Player {
         this.lives = 5
         this.speed = 100
         this.bullets = [];
-        
     }
 
     init() {
@@ -27,11 +26,10 @@ class Player {
         this.imageInstance.src = `img/${this.playerImage}`
         this.draw()
         this.move()
-        
     }
 
     draw() {
-        this.ctx.drawImage(this.imageInstance, this.playerPos.x, this.playerPos.y + 200, 100, 200)
+        this.ctx.drawImage(this.imageInstance, this.playerPos.x, this.playerPos.y + 100, 100, 200)
     }
 
     frameCollision() {

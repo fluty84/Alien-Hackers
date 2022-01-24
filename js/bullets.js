@@ -2,10 +2,8 @@ class Bullets {
     constructor(ctx, playerPosX, playerPosY) {
         this.ctx = ctx
         this.posX = playerPosX + 100
-        this.posY = playerPosY + 300
-               
+        this.posY = playerPosY + 200  
         this.radius = 10
-                
         this.init()
     }
 
@@ -16,7 +14,7 @@ class Bullets {
   
     draw() {
         this.ctx.beginPath()
-        this.ctx.fillStyle = "green"
+        this.ctx.fillStyle = "orange"
         this.ctx.arc(this.posX, this.posY, this.radius, 0, Math.PI * 2)
         this.ctx.fill()
         this.ctx.closePath()

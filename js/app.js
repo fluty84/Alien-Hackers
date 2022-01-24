@@ -40,19 +40,19 @@ const alienHack = {
         this.background = new Background(this.ctx, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
     createGameboard() {
-        this.gameBoard = new Gameboard(this.ctx, 0, 300, this.gameSize.w, this.gameSize.h, this.gameSize)
+        this.gameBoard = new Gameboard(this.ctx, 0, 200, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
     createPlayer() {
-        this.player = new Player(this.ctx, 0, 0, 100, 200, this.gameSize.w, this.gameSize.h, this.gameSize)
+        this.player = new Player(this.ctx, 0, 0, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
     createEnemy() {
         this.enemy.push(new Enemy(this.ctx, 300, 300, this.gameSize.w, this.gameSize.h, this.gameSize, this.player.playerPos))
     },
     createWall() {
-        this.wall.push(new Wall(this.ctx, 600, 500, this.gameSize.w, this.gameSize.h, this.gameSize))
+        this.wall.push(new Wall(this.ctx, 500, 500, this.gameSize.w, this.gameSize.h, this.gameSize, this.player.playerPos))
+        // this.wall.push(new Wall(this.ctx, 900, 600, this.gameSize.w, this.gameSize.h, this.gameSize))ss
     },
     createBullets() {
-        console.log('disparo')
         this.bullets.push(new Bullets(this.ctx, this.player.playerPos.x, this.player.playerPos.y));
         this.bullets.forEach(elm => elm.init())
     },
@@ -61,14 +61,13 @@ const alienHack = {
             this.clearAll()
             this.background.draw()
             this.gameBoard.draw()
-            this.bullets.forEach(elm => elm.draw())
             this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
             this.isCollision()
             this.player.frameCollision()
             this.wallCollision()
+            this.bullets.forEach(elm => elm.draw())
             this.enemy.forEach(elm => elm.draw())
             this.wall.forEach(elm => elm.draw())
-            //this.enemy.move()
             this.player.draw()
         }, 40)
     },
@@ -78,43 +77,48 @@ const alienHack = {
     clearEnemy() {
         this.enemy = this.enemy.filter(elm => elm.enemyPos.x >= 0)
     },
+    clearWall() {
+        this.wall = this.wall.filter(elm => elm.wallPos.x >= 0)
+    },
     clearBullets() {
         this.bullets = this.bullets.filter(elm => elm.posX <= this.gameSize.w)
     },
     isCollision() {
-        return this.enemy.some(enm => {
+        return this.enemy.some(elm => {
             return (   
-                this.player.playerPos.x >= enm.enemyPos.x &&                                    //Izquierda
-                this.player.playerPos.y + this.player.playerSize.h + 100 >= enm.enemyPos.y &&   //Arriba
-                this.player.playerPos.y + this.player.playerSize.h <= enm.enemyPos.y &&         //Abajo
-                this.player.playerPos.x <= enm.enemyPos.x + enm.enemySize.w - 100               //Derecha
+                this.player.playerPos.x >= elm.enemyPos.x &&                                    //Izquierda
+                this.player.playerPos.y + this.player.playerSize.h + 100 >= elm.enemyPos.y &&   //Arriba
+                this.player.playerPos.y + this.player.playerSize.h <= elm.enemyPos.y &&         //Abajo
+                this.player.playerPos.x <= elm.enemyPos.x + elm.enemySize.w - 100               //Derecha
             )
         })
     }, 
-    wallCollision(){
-        
-        //console.log(this.player.playerPos, this.wall[0].wallPos)
-        this.wall.forEach(el => {
-
-            console.log(el.wallPos, this.player.playerPos)
-            if(this.player.playerPos.x < el.wallPos.x + el.wallSize.w &&
-            this.player.playerPos.x + this.player.playerSize.w > el.wallPos.x &&
-            this.player.playerPos.y < el.wallPos.y + el.wallSize.h &&
-            this.player.playerSize.h + this.player.playerPos.y > el.wallPos.y){
-                console.log(this.player.playerPos, el.wallPos, el.wallSize, this.player.playerSize)
-                alert('ostion')    // ¡colision detectada!
-            }
+    wallCollision() {
+        // console.log(this.player.playerPos, this.wall[0].wallPos)
+        // this.wall.forEach(el => {
+        //     // console.log(el.wallPos, this.player.playerPos)
+        //     if (this.player.playerPos.x < el.wallPos.x + el.wallSize.w &&
+        //         this.player.playerPos.x + this.player.playerSize.w > el.wallPos.x &&
+        //         this.player.playerPos.y < el.wallPos.y + el.wallSize.h &&
+        //         this.player.playerSize.h + this.player.playerPos.y > el.wallPos.y) {
+        //         // console.log(this.player.playerPos, el.wallPos, el.wallSize, this.player.playerSize)
+        //         alert('ostion')    // ¡colision detectada!
+        //     }
+        // })
+        return this.wall.some(elm => {
+            console.log(`Colision en ${elm}`)
+            return (   
+                this.player.playerPos.x >= elm.wallPos.x &&                                    //Izquierda
+                this.player.playerPos.y + this.player.playerSize.h + 100 >= elm.wallPos.y &&   //Arriba
+                this.player.playerPos.y + this.player.playerSize.h <= elm.wallPos.y &&         //Abajo
+                this.player.playerPos.x <= elm.wallPos.x + elm.wallSize.w - 100               //Derecha
+            )
         })
     },
     setEventHandlers() {
         document.addEventListener('keydown', event => {
             const { key } = event
-            switch (key) {
-                case ' ':
-                    this.createBullets()
-                    break;
-            }
-            // key === ' ' ? this.bullets : null
+            key === ' ' ? this.createBullets() : null
         })
     }
 }
