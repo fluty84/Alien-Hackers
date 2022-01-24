@@ -24,47 +24,64 @@ class Player {
         this.imageInstance = new Image()
         this.imageInstance.src = `img/${this.playerImage}`
         this.draw()
-        this.setEventHandlers()
         this.move()
-        
     }
 
     draw() {
         this.ctx.drawImage(this.imageInstance, this.playerPos.x, this.playerPos.y + 200, 100, 200)
-        this.move()
-    }
-
-    move() {
-        this.frameCollision()
-        this.enemyColision()
     }
 
     frameCollision() {
         if (this.playerPos.x >= this.gameSize.w) {
             this.playerPos.x -= 100
+            return true
         } else if (this.playerPos.x < 0) {
-            this.playerPos.x += 50
-        }
-        if (this.playerPos.y < 0) {
+            this.playerPos.x += 100
+            return true
+        } else if (this.playerPos.y < 0) {
             this.playerPos.y += 100
+            return true
         } else if (this.playerPos.y >= 600) {
             this.playerPos.y -= 100
+            return
         } else {
             return false
         }
     }
-
-    enemyColision(){
-        alienHack.isCollision()? alert('colision') : console.log('no colision')
-    }
     
-    setEventHandlers() {
+    move() {
         document.addEventListener('keydown', event => {
             const { key } = event
-            key === 'ArrowRight' ? this.playerPos.x += 100 : null
-            key === 'ArrowLeft' ? this.playerPos.x -= 100 : null
-            key === 'ArrowUp' ? this.playerPos.y -= 100 : null
-            key === 'ArrowDown' ? this.playerPos.y += 100 : null
+            switch (key) {
+                case 'w':
+                    if (this.frameCollision() || alienHack.isCollision()) {
+                        return "up collision"
+                    } else {
+                        this.playerPos.y -= 100
+                    }
+                    break;
+                case 's': 
+                    if (this.frameCollision() || alienHack.isCollision()) {
+                        return "down collision"
+                    } else {
+                        this.playerPos.y += 100
+                    }
+                    break;
+                case 'd':
+                    if (this.frameCollision() || alienHack.isCollision()) {
+                        return "right collision"
+                    } else {
+                        this.playerPos.x += 100
+                    }
+                    break;
+                case 'a':
+                    if (this.frameCollision() || alienHack.isCollision()) {
+                        return "left collision"
+                    } else {
+                        this.playerPos.x -= 100
+                    }
+                    break;
+            }
         })
     }
 }
