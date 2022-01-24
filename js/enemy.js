@@ -15,15 +15,13 @@ class Enemy {
             w: gameWidth,
             h: gameHeight
         }
+        this.lives
         this.init()
     }
 
     init() {
         this.imageInstance = new Image()
         this.imageInstance.src = `img/${this.enemyImage}`
-        this.imageInstance.onload = () => {
-            this.draw()
-        }
     }
 
     draw() {

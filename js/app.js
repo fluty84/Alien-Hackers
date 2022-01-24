@@ -11,6 +11,8 @@ const alienHack = {
     gameBoard: undefined,
     player: undefined,
     enemy: [],
+    wall: [],
+    bullets: [],
     init() {
         this.setContext()
         this.setSize()
@@ -18,7 +20,10 @@ const alienHack = {
         this.createGameboard()
         this.createPlayer()
         this.createEnemy()
+        this.createWall()
+        this.createBullets()
         this.drawAll()
+        this.setEventHandlers()
     },
     setContext() {
         this.ctx = document.querySelector('#myCanvas').getContext('2d')
@@ -42,21 +47,31 @@ const alienHack = {
         this.player = new Player(this.ctx, 0, 0, 100, 200, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
     createEnemy() {
-        if (this.framesCounter % 90 === 0) {
-            this.enemy.push(new Enemy(this.ctx, 300, 300, this.gameSize.w, this.gameSize.h, this.gameSize))
-        }
+        this.enemy.push(new Enemy(this.ctx, 300, 300, this.gameSize.w, this.gameSize.h, this.gameSize))
+    },
+    createWall() {
+        this.wall.push(new Wall(this.ctx, 200, 500, this.gameSize.w, this.gameSize.h, this.gameSize))
+    },
+    createBullets() {
+        console.log('disparo')
+        this.bullets.push(new Bullets(this.ctx, this.player.playerPos.x, this.player.playerPos.y));
+        this.bullets.forEach(el => {
+            el.init()    
+        });
     },
     drawAll() {
         setInterval(() => {
             this.clearAll()
             this.background.draw()
             this.gameBoard.draw()
-            this.enemy.forEach(elm => elm.draw())
+            this.bullets.forEach(elm => elm.draw())
             this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
             this.isCollision()
             this.player.frameCollision()
+            this.wallCollision()
+            this.enemy.forEach(elm => elm.draw())
+            this.wall.forEach(elm => elm.draw())
             this.player.draw()
-            
         }, 40)
     },
     clearAll() {
@@ -64,6 +79,9 @@ const alienHack = {
     },
     clearEnemy() {
         this.enemy = this.enemy.filter(elm => elm.enemyPos.x >= 0)
+    },
+    clearBullets() {
+        this.bullets = this.bullets.filter(elm => elm.posX <= this.gameSize.w)
     },
     isCollision() {
         return this.enemy.some(enm => {
@@ -73,6 +91,30 @@ const alienHack = {
                 this.player.playerPos.y + this.player.playerSize.h <= enm.enemyPos.y &&         //Abajo
                 this.player.playerPos.x <= enm.enemyPos.x + enm.enemySize.w - 100               //Derecha
             )
+        })
+    }, 
+    wallCollision(){
+        this.wall.forEach(el => {
+            // console.log(playerPos, el.wallPos.x)
+            if(this.player.playerPos.x + this.player.playerSize.h + this.player.speed > el.wallPos.x){
+                console.log('me doy por la derecha con el muro')
+                this.player.playerPos.x - this.player.speed
+                return true
+                
+            } else if (this.player.playerPos.x < el.wallPos.x + el.wallSize.w){ 
+                console.log('me doy por la izquierda con el muro')
+            }
+        });
+    },
+    setEventHandlers() {
+        document.addEventListener('keydown', event => {
+            const { key } = event
+            switch (key) {
+                case ' ':
+                    this.createBullets()
+                    break;
+            }
+            // key === ' ' ? this.bullets : null
         })
     }
 }

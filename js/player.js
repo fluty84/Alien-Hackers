@@ -16,9 +16,9 @@ class Player {
             h: gameHeight
         }
         this.init()
-        this.actualPlayerPos = []
         this.lives = 5
         this.speed = 100
+        this.bullets = [];
     }
 
     init() {
@@ -26,21 +26,17 @@ class Player {
         this.imageInstance.src = `img/${this.playerImage}`
         this.draw()
         this.move()
-        
     }
 
     draw() {
         this.ctx.drawImage(this.imageInstance, this.playerPos.x, this.playerPos.y + 200, 100, 200)
-        
     }
 
     frameCollision() {
-
-        if (this.playerPos.x + this.speed > 1201) { //salida derecha
+        if (this.playerPos.x + this.speed > 1201) {
             this.playerPos.x = 1100
             return true
-        } else if (this.playerPos.x + this.speed < 99) { //salida izquierda
-            console.log('me las piro por la izquierda')
+        } else if (this.playerPos.x + this.speed < 99) {
             this.playerPos.x = 0
             return true
         } else if (this.playerPos.y < -1) {
@@ -52,7 +48,6 @@ class Player {
         } else {
             return false
         }
-        
     }
     
     move() {
@@ -62,21 +57,17 @@ class Player {
                 case 'w':
                     if (this.frameCollision() || alienHack.isCollision()) {
                         this.playerPos.y += this.speed
-                        console.log(this.playerPos)
                         return "up collision"
                     } else {
-                        console.log(this.playerPos)
                         this.playerPos.y -= this.speed
                     }
                     break;
                 case 's': 
                     if (this.frameCollision() || alienHack.isCollision()) {
                         this.playerPos.y -= this.speed
-                        console.log(this.playerPos.y)
                         return "down collision"
                     } else {
                         this.playerPos.y += this.speed
-                        console.log(this.playerPos.y)
                     }
                     break;
                 case 'd':
@@ -84,21 +75,18 @@ class Player {
                         this.playerPos.x -= this.speed
                         return "right collision"
                     } else {
-                        console.log(this.playerPos)
                         this.playerPos.x += this.speed
                     }
                     break;
                 case 'a':
                     if (this.frameCollision() || alienHack.isCollision()) {
-                        this.playerPos.x = 0
-                        console.log('te empujo a la derecha')
+                        this.playerPos.x += this.speed
                         return "left collision"
                         
                     } else {
-                        console.log(this.playerPos)
                         this.playerPos.x -= this.speed
                     }
-                    
+                    break;
             }
         })
     }
