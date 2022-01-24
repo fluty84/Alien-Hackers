@@ -43,11 +43,11 @@ class Player {
             console.log('me las piro por la izquierda')
             this.playerPos.x = 0
             return true
-        } else if (this.playerPos.y < 0) {
-            //this.playerPos.y += 100
+        } else if (this.playerPos.y < -1) {
+            this.playerPos.y = 0
             return true
-        } else if (this.playerPos.y > 500) {
-            //this.playerPos.y -= 100
+        } else if (this.playerPos.y > 501) {
+            this.playerPos.y = 500
             return true
         } else {
             return false
