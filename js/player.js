@@ -33,18 +33,18 @@ class Player {
     }
 
     frameCollision() {
-        if (this.playerPos.x >= this.gameSize.w) {
+        if (this.playerPos.x > 1100) { //salida derecha
             //this.playerPos.x -= 100
             return true
-        } else if (this.playerPos.x < 0) {
+        } else if (this.playerPos.x < 0) { //salida izquierda
             //this.playerPos.x += 100
             return true
         } else if (this.playerPos.y < 0) {
             //this.playerPos.y += 100
             return true
-        } else if (this.playerPos.y >= 600) {
+        } else if (this.playerPos.y > 500) {
             //this.playerPos.y -= 100
-            return
+            return true
         } else {
             return false
         }
@@ -56,7 +56,8 @@ class Player {
             switch (key) {
                 case 'w':
                     if (this.frameCollision() || alienHack.isCollision()) {
-                        this.playerPos += 100
+                        this.playerPos.y += 100
+                        console.log(this.playerPos)
                         return "up collision"
                     } else {
                         this.playerPos.y -= 100
@@ -65,9 +66,11 @@ class Player {
                 case 's': 
                     if (this.frameCollision() || alienHack.isCollision()) {
                         this.playerPos.y -=100
+                        console.log(this.playerPos.y)
                         return "down collision"
                     } else {
                         this.playerPos.y += 100
+                        console.log(this.playerPos.y)
                     }
                     break;
                 case 'd':
@@ -80,7 +83,7 @@ class Player {
                     break;
                 case 'a':
                     if (this.frameCollision() || alienHack.isCollision()) {
-                        this.playerPos.x +=100
+                        this.playerPos.x += 100
                         return "left collision"
                     } else {
                         this.playerPos.x -= 100
