@@ -21,7 +21,6 @@ const alienHack = {
         this.createPlayer()
         this.createEnemy()
         this.createWall()
-        this.createBullets()
         this.drawAll()
         this.setEventHandlers()
     },
@@ -55,9 +54,7 @@ const alienHack = {
     createBullets() {
         console.log('disparo')
         this.bullets.push(new Bullets(this.ctx, this.player.playerPos.x, this.player.playerPos.y));
-        this.bullets.forEach(el => {
-            el.init()    
-        });
+        this.bullets.forEach(elm => elm.init())
     },
     drawAll() {
         setInterval(() => {
