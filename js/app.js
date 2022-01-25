@@ -66,6 +66,7 @@ const alienHack = {
             this.enemyCollision()
             this.player.frameCollision()
             this.wallCollision()
+            this.bulletCollisionW()
             this.bullets.forEach(elm => elm.draw())
             this.enemy.forEach(elm => elm.draw())
             this.wall.forEach(elm => elm.draw())
@@ -85,6 +86,7 @@ const alienHack = {
     },
     clearBullets() {
         this.bullets = this.bullets.filter(elm => elm.posX <= this.gameSize.w)
+        
     },
     enemyCollision() {
         return this.enemy.some(elm => {
@@ -116,18 +118,22 @@ const alienHack = {
         })
     },
     bulletCollisionW() {
-        return this.bullets.some(bullet => {
-            console.log(this.player.playerPos, elm.enemyPos)
-            if (
-                this.player.playerPos.x < elm.enemyPos.x + elm.enemySize.w &&                                    //Izquierda
-                this.player.playerPos.x + this.player.playerSize.w > elm.enemyPos.x &&   //Arriba
-                this.player.playerPos.y < elm.enemyPos.y + elm.enemySize.h &&         //Abajo
-                this.player.playerSize.h + this.player.playerPos.y > elm.enemyPos.y              //Derecha
-            ) {
+        return this.bullets.some(elm => {
+            console.log(this.wall.wallPos, elm.posX)
+           
+           for (let i = 0 ; i < this.wall.length; i++){ //// si sobra tiempo ForEEECH
+            if (this.wall[i].wallPos.x < elm.posX  &&                                    //Izquierda
+                this.wall[i].wallPos.x + this.wall[i].wallSize.w > elm.posX &&   //Arriba
+                this.wall[i].wallPos.y < elm.posY &&         //Abajo
+                this.wall[i].wallSize.h + this.wall[i].wallPos.y > elm.posY              //Derecha
+            ) {          
+                console.log('pun')
+                this.bullets = []
                 return true
             }
+        }
 
-        })
+        })//final bucle some
         
     },
     followEnemy() {
