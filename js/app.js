@@ -22,7 +22,8 @@ const alienHack = {
         this.createEnemy()
         this.createWall()
         this.drawAll()
-        this.setEventHandlers()
+        this.shoot()
+        this.enemyIntervalShoot()
     },
     setContext() {
         this.ctx = document.querySelector('#myCanvas').getContext('2d')
@@ -53,8 +54,11 @@ const alienHack = {
         // this.wall.push(new Wall(this.ctx, 900, 600, this.gameSize.w, this.gameSize.h, this.gameSize))ss
     },
     createBullets() {
-        this.bullets.push(new Bullets(this.ctx, this.player.playerPos.x, this.player.playerPos.y));
-        
+        this.bullets.push(new Bullets(this.ctx, this.player.playerPos.x, this.player.playerPos.y, 'orange'));
+
+    },
+    enemyBullets() {
+        this.bullets.push(new EnemyBullets(this.ctx, this.player.playerPos.x, this.player.playerPos.y, this.enemy[0].enemyPos.x, this.enemy[0].enemyPos.y, 'green'))
     },
     drawAll() {
         setInterval(() => {
@@ -62,6 +66,7 @@ const alienHack = {
             this.background.draw()
             this.gameBoard.draw()
             this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
+            this.enemyIntervalShoot()
             this.enemyObjetives()
             this.enemyCollision()
             this.player.frameCollision()
@@ -72,7 +77,6 @@ const alienHack = {
             this.enemy.forEach(elm => elm.draw())
             this.wall.forEach(elm => elm.draw())
             this.clearBullets()
-            console.log(this.bullets.length)
             this.player.draw()
         }, 40)
     },
@@ -87,7 +91,7 @@ const alienHack = {
     },
     clearBullets() {
         this.bullets = this.bullets.filter(elm => elm.posX <= this.gameSize.w)
-        
+
     },
     enemyCollision() {
         return this.enemy.some(elm => {
@@ -100,7 +104,7 @@ const alienHack = {
             ) {
                 return true
             }
-          
+
         })
     },
     wallCollision() {
@@ -109,35 +113,35 @@ const alienHack = {
             console.log(this.player.playerPos, elm.wallPos)
             if (
                 this.player.playerPos.x < elm.wallPos.x + elm.wallSize.w &&                                    //Izquierda
-                this.player.playerPos.x + this.player.playerSize.w > elm.wallPos.x &&   
-                this.player.playerPos.y < elm.wallPos.y + elm.wallSize.h &&        
-                this.player.playerSize.h + this.player.playerPos.y > elm.wallPos.y             
+                this.player.playerPos.x + this.player.playerSize.w > elm.wallPos.x &&
+                this.player.playerPos.y < elm.wallPos.y + elm.wallSize.h &&
+                this.player.playerSize.h + this.player.playerPos.y > elm.wallPos.y
             ) {
                 console.log('collision')
                 return true
-            }         
+            }
         })
     },
     bulletCollisionW() {
         return this.bullets.some(elm => {
             console.log(this.wall.wallPos, elm.posX)
-           
-           for (let i = 0 ; i < this.wall.length; i++){ //// si sobra tiempo ForEEECH
-            if (this.wall[i].wallPos.x < elm.posX  &&                                    //Izquierda
-                this.wall[i].wallPos.x + this.wall[i].wallSize.w > elm.posX &&   //Arriba
-                this.wall[i].wallPos.y < elm.posY &&         //Abajo
-                this.wall[i].wallSize.h + this.wall[i].wallPos.y > elm.posY              //Derecha
-            ) {          
-                console.log('pun')
-                this.bullets = []
-                return true
+
+            for (let i = 0; i < this.wall.length; i++) { //// si sobra tiempo ForEEECH
+                if (this.wall[i].wallPos.x < elm.posX &&                                    //Izquierda
+                    this.wall[i].wallPos.x + this.wall[i].wallSize.w > elm.posX &&   //Arriba
+                    this.wall[i].wallPos.y < elm.posY &&         //Abajo
+                    this.wall[i].wallSize.h + this.wall[i].wallPos.y > elm.posY              //Derecha
+                ) {
+                    console.log('pun')
+                    this.bullets = []
+                    return true
+                }
             }
-        }
 
         })//final bucle some
-        
+
     },
-    
+
     bulletCollisionE() {
         return this.bullets.some(elm => {
             for (let i = 0; i < this.enemy.length; i++) { //// si sobra tiempo ForEEECH
@@ -155,19 +159,20 @@ const alienHack = {
             }
         })
     },
-  
 
-    
+
+
     enemyObjetives() {
         if (this.player.playerPos.x === 200 && this.player.playerPos.y === 400) {
             this.enemyMove1()
         }
     },
     enemyMove1() { // 3D 200 400 enemy to G1 500 200
-       
+
         setTimeout(() => {
             this.enemy.forEach(elm => {
                 //alert('the fulminooo')
+
                 if (elm.enemyPos.x < 500 && elm.enemyPos.y < 200) {
                     elm.enemyPos.x += 50
                     elm.enemyPos.y += 50
@@ -176,17 +181,25 @@ const alienHack = {
                     elm.enemyPos.y -= 50
                 }
             })
+
         }, 1000)
-        setTimeout(() =>{  this.enemy[0].goHide()},4000)
-        
+
+       
+        setTimeout(() => { this.enemy[0].goHide() }, 4000)
+
     },
 
 
 
-    setEventHandlers() {
+    shoot() {
         document.addEventListener('keydown', event => {
             const { key } = event
             key === ' ' ? this.createBullets() : null
         })
+    },
+
+    enemyIntervalShoot(){
+        if(this.framesCounter % 20 === 0){
+            this.enemyBullets()}
     }
 }

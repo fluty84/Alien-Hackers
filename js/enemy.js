@@ -37,7 +37,7 @@ class Enemy {
             this.enemyPos.x -= 50
             this.enemyPos.y -= 50
         } else {
-            console.log('disparo')
+            alienHack.enemyBullets()
         }
 
     }

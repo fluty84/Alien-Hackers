@@ -3,7 +3,8 @@
     padding: 0;
 }
 
-/* #myCanvas {
+#myCanvas {
     margin: 0 auto;
     display: block;
-} */
+    cursor: url(../img/target.png);
+} 
