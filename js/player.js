@@ -56,28 +56,28 @@ class Player {
             switch (key) {
                 case 'w':
                     this.playerPos.y -= this.speed
-                    if (this.frameCollision() || alienHack.enemyCollision()) {
+                    if (this.frameCollision() || alienHack.enemyCollision() || alienHack.wallCollision())  {
                         this.playerPos.y += this.speed
                         return "up collision"
                     }
                     break;
                 case 's':
                     this.playerPos.y += this.speed
-                    if (this.frameCollision() || alienHack.enemyCollision()) {
+                    if (this.frameCollision() || alienHack.enemyCollision()|| alienHack.wallCollision()) {
                         this.playerPos.y -= this.speed
                         return "down collision"
                     }
                     break;
                 case 'd':
                     this.playerPos.x += this.speed
-                    if (this.frameCollision() || alienHack.enemyCollision()) {
+                    if (this.frameCollision() || alienHack.enemyCollision() || alienHack.wallCollision()) {
                         this.playerPos.x -= this.speed
                         return "right collision"
                     }
                     break;
                 case 'a':
                     this.playerPos.x -= this.speed
-                    if (this.frameCollision() || alienHack.enemyCollision()) {
+                    if (this.frameCollision() || alienHack.enemyCollision() || alienHack.wallCollision()) {
                         this.playerPos.x += this.speed
                         return "left collision"
                     }

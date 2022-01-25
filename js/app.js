@@ -37,19 +37,19 @@ const alienHack = {
         document.querySelector('#myCanvas').setAttribute('height', this.gameSize.h)
     },
     createBackGround() {
-        this.background = new Background(this.ctx, 0, 0,0,0 ,this.gameSize.w, this.gameSize.h, this.gameSize)
+        this.background = new Background(this.ctx, 0, 0, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
     createGameboard() {
-        this.gameBoard = new Gameboard(this.ctx, 0, 200,0,0, this.gameSize.w, this.gameSize.h, this.gameSize)
+        this.gameBoard = new Gameboard(this.ctx, 0, 200, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
     createPlayer() {
         this.player = new Player(this.ctx, 0, 100, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize, 100)
     },
     createEnemy() {
-        this.enemy.push(new Enemy(this.ctx, 800, 300,0,0, this.gameSize.w, this.gameSize.h, this.gameSize))
+        this.enemy.push(new Enemy(this.ctx, 800, 300, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize))
     },
     createWall() {
-        this.wall.push(new Wall(this.ctx, 500, 500, 100,200, this.gameSize.w, this.gameSize.h, this.gameSize))
+        this.wall.push(new Wall(this.ctx, 500, 400, 100, 200, this.gameSize.w, this.gameSize.h, this.gameSize))
         // this.wall.push(new Wall(this.ctx, 900, 600, this.gameSize.w, this.gameSize.h, this.gameSize))ss
     },
     createBullets() {
@@ -85,35 +85,45 @@ const alienHack = {
     },
     enemyCollision() {
         return this.enemy.some(elm => {
-            return (
-                this.player.playerPos.x >= elm.enemyPos.x &&                                    //Izquierda
-                this.player.playerPos.y + this.player.playerSize.h + 100 >= elm.enemyPos.y &&   //Arriba
-                this.player.playerPos.y + this.player.playerSize.h <= elm.enemyPos.y &&         //Abajo
-                this.player.playerPos.x <= elm.enemyPos.x + elm.enemySize.w - 100               //Derecha
-            )
+            console.log(this.player.playerPos, elm.enemyPos)
+            if (
+                this.player.playerPos.x < elm.enemyPos.x + elm.enemySize.w &&                                    //Izquierda
+                this.player.playerPos.x + this.player.playerSize.w > elm.enemyPos.x &&   //Arriba
+                this.player.playerPos.y < elm.enemyPos.y + elm.enemySize.h &&         //Abajo
+                this.player.playerSize.h + this.player.playerPos.y > elm.enemyPos.y              //Derecha
+            ) {
+                return true
+            }
+
+            // if (rect1.x < rect2.x + rect2.width &&
+            //     rect1.x + rect1.width > rect2.x &&
+            //     rect1.y < rect2.y + rect2.height &&
+            //     rect1.height + rect1.y > rect2.y) {
         })
     },
     wallCollision() {
-        // console.log(this.player.playerPos, this.wall[0].wallPos)
-        // this.wall.forEach(el => {
-        //     // console.log(el.wallPos, this.player.playerPos)
-        //     if (this.player.playerPos.x < el.wallPos.x + el.wallSize.w &&
-        //         this.player.playerPos.x + this.player.playerSize.w > el.wallPos.x &&
-        //         this.player.playerPos.y < el.wallPos.y + el.wallSize.h &&
-        //         this.player.playerSize.h + this.player.playerPos.y > el.wallPos.y) {
-        //         // console.log(this.player.playerPos, el.wallPos, el.wallSize, this.player.playerSize)
-        //         alert('ostion')    // ¡colision detectada!
-        //     }
-        // })
+
         return this.wall.some(elm => {
-            console.log(this.player.playerPos, this.enemy[0].enemyPos, elm.wallPos)
-            return (
-                this.player.playerPos.x >= elm.wallPos.x &&                                    //Izquierda
-                this.player.playerPos.y + this.player.playerSize.h + 100 >= elm.wallPos.y &&   //Arriba
-                this.player.playerPos.y + this.player.playerSize.h <= elm.wallPos.y &&         //Abajo
-                this.player.playerPos.x <= elm.wallPos.x + elm.wallSize.w - 100               //Derecha
-            )
+            console.log(this.player.playerPos, elm.wallPos)
+            if (
+                this.player.playerPos.x < elm.wallPos.x + elm.wallSize.w &&                                    //Izquierda
+                this.player.playerPos.x + this.player.playerSize.w > elm.wallPos.x &&   //Arriba
+                this.player.playerPos.y < elm.wallPos.y + elm.wallSize.h &&         //Abajo
+                this.player.playerSize.h + this.player.playerPos.y > elm.wallPos.y              //Derecha
+            ) {
+                console.log('collision')
+                return true
+            }
+
+            // if (rect1.x < rect2.x + rect2.width &&
+            //     rect1.x + rect1.width > rect2.x &&
+            //     rect1.y < rect2.y + rect2.height &&
+            //     rect1.height + rect1.y > rect2.y) {
         })
+
+
+
+
     },
     setEventHandlers() {
         document.addEventListener('keydown', event => {
