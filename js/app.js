@@ -37,19 +37,19 @@ const alienHack = {
         document.querySelector('#myCanvas').setAttribute('height', this.gameSize.h)
     },
     createBackGround() {
-        this.background = new Background(this.ctx, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
+        this.background = new Background(this.ctx, 0, 0,0,0 ,this.gameSize.w, this.gameSize.h, this.gameSize)
     },
     createGameboard() {
-        this.gameBoard = new Gameboard(this.ctx, 0, 200, this.gameSize.w, this.gameSize.h, this.gameSize)
+        this.gameBoard = new Gameboard(this.ctx, 0, 200,0,0, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
     createPlayer() {
-        this.player = new Player(this.ctx, 0, 0, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
+        this.player = new Player(this.ctx, 0, 100, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize, 100)
     },
     createEnemy() {
-        this.enemy.push(new Enemy(this.ctx, 300, 300, this.gameSize.w, this.gameSize.h, this.gameSize, this.player.playerPos))
+        this.enemy.push(new Enemy(this.ctx, 800, 300,0,0, this.gameSize.w, this.gameSize.h, this.gameSize))
     },
     createWall() {
-        this.wall.push(new Wall(this.ctx, 500, 500, this.gameSize.w, this.gameSize.h, this.gameSize, this.player.playerPos))
+        this.wall.push(new Wall(this.ctx, 500, 500, 100,200, this.gameSize.w, this.gameSize.h, this.gameSize))
         // this.wall.push(new Wall(this.ctx, 900, 600, this.gameSize.w, this.gameSize.h, this.gameSize))ss
     },
     createBullets() {
@@ -62,7 +62,7 @@ const alienHack = {
             this.background.draw()
             this.gameBoard.draw()
             this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
-            this.isCollision()
+            this.enemyCollision()
             this.player.frameCollision()
             this.wallCollision()
             this.bullets.forEach(elm => elm.draw())
@@ -83,16 +83,16 @@ const alienHack = {
     clearBullets() {
         this.bullets = this.bullets.filter(elm => elm.posX <= this.gameSize.w)
     },
-    isCollision() {
+    enemyCollision() {
         return this.enemy.some(elm => {
-            return (   
+            return (
                 this.player.playerPos.x >= elm.enemyPos.x &&                                    //Izquierda
                 this.player.playerPos.y + this.player.playerSize.h + 100 >= elm.enemyPos.y &&   //Arriba
                 this.player.playerPos.y + this.player.playerSize.h <= elm.enemyPos.y &&         //Abajo
                 this.player.playerPos.x <= elm.enemyPos.x + elm.enemySize.w - 100               //Derecha
             )
         })
-    }, 
+    },
     wallCollision() {
         // console.log(this.player.playerPos, this.wall[0].wallPos)
         // this.wall.forEach(el => {
@@ -106,8 +106,8 @@ const alienHack = {
         //     }
         // })
         return this.wall.some(elm => {
-            console.log(`Colision en ${elm}`)
-            return (   
+            console.log(this.player.playerPos, this.enemy[0].enemyPos, elm.wallPos)
+            return (
                 this.player.playerPos.x >= elm.wallPos.x &&                                    //Izquierda
                 this.player.playerPos.y + this.player.playerSize.h + 100 >= elm.wallPos.y &&   //Arriba
                 this.player.playerPos.y + this.player.playerSize.h <= elm.wallPos.y &&         //Abajo

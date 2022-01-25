@@ -6,8 +6,8 @@ class Player {
             y: posY
         }
         this.playerSize = {
-            w: width,
-            h: height
+            w: 100,
+            h: 200
         }
         this.playerImage = 'player.png'
         this.imageInstance = undefined
@@ -29,7 +29,7 @@ class Player {
     }
 
     draw() {
-        this.ctx.drawImage(this.imageInstance, this.playerPos.x, this.playerPos.y + 100, 100, 200)
+        this.ctx.drawImage(this.imageInstance, this.playerPos.x, this.playerPos.y, this.playerSize.w, this.playerSize.h)
     }
 
     frameCollision() {
@@ -55,39 +55,47 @@ class Player {
             const { key } = event
             switch (key) {
                 case 'w':
-                    if (this.frameCollision() || alienHack.isCollision()) {
+                    this.playerPos.y -= this.speed
+                    if (this.frameCollision() || alienHack.enemyCollision()) {
                         this.playerPos.y += this.speed
                         return "up collision"
-                    } else {
-                        this.playerPos.y -= this.speed
                     }
                     break;
-                case 's': 
-                    if (this.frameCollision() || alienHack.isCollision()) {
+                case 's':
+                    this.playerPos.y += this.speed
+                    if (this.frameCollision() || alienHack.enemyCollision()) {
                         this.playerPos.y -= this.speed
                         return "down collision"
-                    } else {
-                        this.playerPos.y += this.speed
                     }
                     break;
                 case 'd':
-                    if (this.frameCollision() || alienHack.isCollision()) {
+                    this.playerPos.x += this.speed
+                    if (this.frameCollision() || alienHack.enemyCollision()) {
                         this.playerPos.x -= this.speed
                         return "right collision"
-                    } else {
-                        this.playerPos.x += this.speed
                     }
                     break;
                 case 'a':
-                    if (this.frameCollision() || alienHack.isCollision()) {
+                    this.playerPos.x -= this.speed
+                    if (this.frameCollision() || alienHack.enemyCollision()) {
                         this.playerPos.x += this.speed
                         return "left collision"
-                        
-                    } else {
-                        this.playerPos.x -= this.speed
                     }
                     break;
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
         })
     }
 }

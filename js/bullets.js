@@ -2,13 +2,13 @@ class Bullets {
     constructor(ctx, playerPosX, playerPosY) {
         this.ctx = ctx
         this.posX = playerPosX + 100
-        this.posY = playerPosY + 200  
+        this.posY = playerPosY + 100 
         this.radius = 10
         this.init()
     }
 
     init() {
-        this.draw()
+       
         this.move()
     }
   
