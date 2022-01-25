@@ -34,16 +34,16 @@ class Player {
 
     frameCollision() {
         if (this.playerPos.x + this.speed > 1201) {
-            this.playerPos.x = 1100
+           
             return true
         } else if (this.playerPos.x + this.speed < 99) {
-            this.playerPos.x = 0
+           
             return true
-        } else if (this.playerPos.y < -1) {
-            this.playerPos.y = 0
+        } else if (this.playerPos.y < 99) {
+            
             return true
-        } else if (this.playerPos.y > 501) {
-            this.playerPos.y = 500
+        } else if (this.playerPos.y > 601) {
+           
             return true
         } else {
             return false
