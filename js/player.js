@@ -42,7 +42,7 @@ class Player {
         } else if (this.playerPos.y < 99) {
             
             return true
-        } else if (this.playerPos.y > 601) {
+        } else if (this.playerPos.y > 602) {
            
             return true
         } else {
