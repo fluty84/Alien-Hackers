@@ -54,7 +54,7 @@ const alienHack = {
     },
     createBullets() {
         this.bullets.push(new Bullets(this.ctx, this.player.playerPos.x, this.player.playerPos.y));
-        this.bullets.forEach(elm => elm.init())
+        
     },
     drawAll() {
         setInterval(() => {
@@ -62,12 +62,15 @@ const alienHack = {
             this.background.draw()
             this.gameBoard.draw()
             this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
+            this.followEnemy
             this.enemyCollision()
             this.player.frameCollision()
             this.wallCollision()
             this.bullets.forEach(elm => elm.draw())
             this.enemy.forEach(elm => elm.draw())
             this.wall.forEach(elm => elm.draw())
+            this.clearBullets()
+            console.log(this.bullets.length)
             this.player.draw()
         }, 40)
     },
@@ -94,11 +97,7 @@ const alienHack = {
             ) {
                 return true
             }
-
-            // if (rect1.x < rect2.x + rect2.width &&
-            //     rect1.x + rect1.width > rect2.x &&
-            //     rect1.y < rect2.y + rect2.height &&
-            //     rect1.height + rect1.y > rect2.y) {
+          
         })
     },
     wallCollision() {
@@ -107,24 +106,47 @@ const alienHack = {
             console.log(this.player.playerPos, elm.wallPos)
             if (
                 this.player.playerPos.x < elm.wallPos.x + elm.wallSize.w &&                                    //Izquierda
-                this.player.playerPos.x + this.player.playerSize.w > elm.wallPos.x &&   //Arriba
-                this.player.playerPos.y < elm.wallPos.y + elm.wallSize.h &&         //Abajo
-                this.player.playerSize.h + this.player.playerPos.y > elm.wallPos.y              //Derecha
+                this.player.playerPos.x + this.player.playerSize.w > elm.wallPos.x &&   
+                this.player.playerPos.y < elm.wallPos.y + elm.wallSize.h &&        
+                this.player.playerSize.h + this.player.playerPos.y > elm.wallPos.y             
             ) {
                 console.log('collision')
                 return true
+            }         
+        })
+    },
+    bulletCollisionW() {
+        return this.bullets.some(bullet => {
+            console.log(this.player.playerPos, elm.enemyPos)
+            if (
+                this.player.playerPos.x < elm.enemyPos.x + elm.enemySize.w &&                                    //Izquierda
+                this.player.playerPos.x + this.player.playerSize.w > elm.enemyPos.x &&   //Arriba
+                this.player.playerPos.y < elm.enemyPos.y + elm.enemySize.h &&         //Abajo
+                this.player.playerSize.h + this.player.playerPos.y > elm.enemyPos.y              //Derecha
+            ) {
+                return true
             }
 
-            // if (rect1.x < rect2.x + rect2.width &&
-            //     rect1.x + rect1.width > rect2.x &&
-            //     rect1.y < rect2.y + rect2.height &&
-            //     rect1.height + rect1.y > rect2.y) {
         })
-
-
-
-
+        
     },
+    followEnemy() {
+        if (this.player.playerPos.x && this.player.playerPos.y) {
+            this.enemyMove1()
+        }
+    },
+    enemyMove1() {
+        this.enemy.forEach(elm => {
+            if (elm.enemyPos.y < 500 && elm.enemyPos.x < 600) {
+                elm.enemyPos.y += 50
+                elm.enemyPos.x += 50
+            } else if (elm.enemyPos.y > 500 && elm.enemyPos.x > 600) {
+                elm.enemyPos.y -= 50
+                elm.enemyPos.y -= 50
+            }
+        })
+    },
+
     setEventHandlers() {
         document.addEventListener('keydown', event => {
             const { key } = event
