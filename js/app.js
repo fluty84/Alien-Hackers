@@ -62,11 +62,12 @@ const alienHack = {
             this.background.draw()
             this.gameBoard.draw()
             this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
-            this.followEnemy
+            this.enemyObjetives()
             this.enemyCollision()
             this.player.frameCollision()
             this.wallCollision()
             this.bulletCollisionW()
+            this.bulletCollisionE()
             this.bullets.forEach(elm => elm.draw())
             this.enemy.forEach(elm => elm.draw())
             this.wall.forEach(elm => elm.draw())
@@ -136,22 +137,51 @@ const alienHack = {
         })//final bucle some
         
     },
-    followEnemy() {
-        if (this.player.playerPos.x && this.player.playerPos.y) {
-            this.enemyMove1()
-        }
-    },
-    enemyMove1() {
-        this.enemy.forEach(elm => {
-            if (elm.enemyPos.y < 500 && elm.enemyPos.x < 600) {
-                elm.enemyPos.y += 50
-                elm.enemyPos.x += 50
-            } else if (elm.enemyPos.y > 500 && elm.enemyPos.x > 600) {
-                elm.enemyPos.y -= 50
-                elm.enemyPos.y -= 50
+    
+    bulletCollisionE() {
+        return this.bullets.some(elm => {
+            for (let i = 0; i < this.enemy.length; i++) { //// si sobra tiempo ForEEECH
+                if (this.enemy[i].enemyPos.x < elm.posX &&
+                    this.enemy[i].enemyPos.x + this.enemy[i].enemySize.w > elm.posX &&
+                    this.enemy[i].enemyPos.y < elm.posY &&
+                    this.enemy[i].enemySize.h + this.enemy[i].enemyPos.y > elm.posY) {
+                    this.bullets = []
+                    this.enemy[i].lives--
+                    if (this.enemy[i].lives === 0) {
+                        this.enemy = []
+                    }
+                    return true
+                }
             }
         })
     },
+  
+
+    
+    enemyObjetives() {
+        if (this.player.playerPos.x === 200 && this.player.playerPos.y === 400) {
+            this.enemyMove1()
+        }
+    },
+    enemyMove1() { // 3D 200 400 enemy to G1 500 200
+       
+        setTimeout(() => {
+            this.enemy.forEach(elm => {
+                //alert('the fulminooo')
+                if (elm.enemyPos.x < 500 && elm.enemyPos.y < 200) {
+                    elm.enemyPos.x += 50
+                    elm.enemyPos.y += 50
+                } else if (elm.enemyPos.x > 500 && elm.enemyPos.y > 200) {
+                    elm.enemyPos.x -= 50
+                    elm.enemyPos.y -= 50
+                }
+            })
+        }, 1000)
+        setTimeout(() =>{  this.enemy[0].goHide()},4000)
+        
+    },
+
+
 
     setEventHandlers() {
         document.addEventListener('keydown', event => {

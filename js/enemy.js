@@ -27,6 +27,20 @@ class Enemy {
     draw() {
         this.ctx.drawImage(this.imageInstance, this.enemyPos.x, this.enemyPos.y, this.enemySize.w, this.enemySize.h)
     }
-   
-  
+
+    goHide() { //enemy to K4 900 500
+
+        if (this.enemyPos.x < 900 && this.enemyPos.y < 500) {
+            this.enemyPos.x += 50
+            this.enemyPos.y += 50
+        } else if (this.enemyPos.x > 900 && this.enemyPos.y > 500) {
+            this.enemyPos.x -= 50
+            this.enemyPos.y -= 50
+        } else {
+            console.log('disparo')
+        }
+
+    }
+
+
 }
