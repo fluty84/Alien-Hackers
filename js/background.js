@@ -10,7 +10,7 @@ class Background {
             h: 200
         }
         this.gameSize = gameSize
-        this.bgImage = 'bgdemo.png'
+        this.bgImage = 'acera.png'
         this.imageInstance = undefined
         this.init()
     }

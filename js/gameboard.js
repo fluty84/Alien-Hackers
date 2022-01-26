@@ -10,7 +10,7 @@ class Gameboard {
             h: 600
         }
         this.gameSize = gameSize
-        this.gmImage = 'grid.png'
+        this.gmImage = 'stones.png'
         this.imageInstance = undefined
         this.init()
     }
