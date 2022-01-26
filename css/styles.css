@@ -1,10 +1,23 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
 }
 
-/* #myCanvas {
+body {
+    background: rgb(87,152,176);
+    background: linear-gradient(0deg, rgba(87,152,176,1) 0%, rgba(26,40,52,1) 1%, rgba(93,125,150,1) 100%);
+}
+
+#myCanvas {
     margin: 0 auto;
     display: block;
     cursor: url(../img/target.png);
-}  */
+}
+
+h1 {
+    text-align: center;
+    padding: 20px auto 20px;
+    color: aliceblue;
+
+}

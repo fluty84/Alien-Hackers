@@ -38,6 +38,13 @@ const alienHack = {
         document.querySelector('#myCanvas').setAttribute('width', this.gameSize.w)
         document.querySelector('#myCanvas').setAttribute('height', this.gameSize.h)
     },
+   
+   
+   
+   
+   /////////////////////// INSTANCIAS ///////////////////////////////
+   
+   
     createBackGround() {
         this.background = new Background(this.ctx, 0, 0, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
@@ -51,8 +58,8 @@ const alienHack = {
         this.enemy.push(new Enemy(this.ctx, 800, 300, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize))
     },
     createWall() {
-        this.wall.push(new Wall(this.ctx, 500, 450, 100, 200, this.gameSize.w, this.gameSize.h, this.gameSize))
-        this.wall.push(new Wall(this.ctx, 500, 200, 100,100, this.gameSize.h, this.gameSize))
+        this.wall.push(new Wall(this.ctx, 500, 400, 100, 150, this.gameSize.w, this.gameSize.h, this.gameSize))
+        this.wall.push(new Wall(this.ctx, 500, 150, 100,100, this.gameSize.h, this.gameSize))
         this.wall.push(new Wall(this.ctx, 700, 575, 100, 225, this.gameSize.h, this.gameSize))
 
     },
@@ -103,7 +110,7 @@ const alienHack = {
     },
     enemyCollision() {   ////PLAYER VS ENEMY
         return this.enemy.some(elm => {
-            //console.log(this.player.playerPos, elm.enemyPos)
+           
             if (
                 this.player.playerPos.x < elm.enemyPos.x + elm.enemySize.w &&                                    //Izquierda
                 this.player.playerPos.x + this.player.playerSize.w > elm.enemyPos.x &&   //Arriba
@@ -118,7 +125,7 @@ const alienHack = {
     wallCollision() {  ////PLAYER VS WALL
 
         return this.wall.some(elm => {
-            //console.log(this.player.playerPos, elm.wallPos)
+            
             if (
                 this.player.playerPos.x < elm.wallPos.x + elm.wallSize.w &&                                    //Izquierda
                 this.player.playerPos.x + this.player.playerSize.w > elm.wallPos.x &&
@@ -182,11 +189,7 @@ const alienHack = {
         })
     },
 
-    // if(rect1.x < rect2.x + rect2.width &&
-    //     rect1.x + rect1.width > rect2.x &&
-    //     rect1.y < rect2.y + rect2.height &&
-    //     rect1.height + rect1.y > rect2.y) {
-    // // ¡colision detectada!
+    
 
     /////////////////////////////////////////////// MOVEMENTS////////////////////////////////////////////
 

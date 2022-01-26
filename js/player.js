@@ -39,6 +39,16 @@ class Player {
     }
 
     draw() {
+        
+        ////////////////////// testeando. borrar si no vale
+        let frameWidth = 100
+        let frameHeight = 200
+        let row = 1;
+        let column = 3;
+
+        this.ctx.drawImage(this.imageInstance, column * frameWidth, row * frameHeight, frameWidth, frameHeight, 100, 200, frameWidth, frameHeight);
+
+        //////////////////////
         this.ctx.drawImage(
             this.imageInstance,
             
