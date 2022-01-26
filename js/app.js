@@ -51,8 +51,10 @@ const alienHack = {
         this.enemy.push(new Enemy(this.ctx, 800, 300, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize))
     },
     createWall() {
-        this.wall.push(new Wall(this.ctx, 500, 400, 100, 200, this.gameSize.w, this.gameSize.h, this.gameSize))
-        //this.wall.push(new Wall(this.ctx, 500, 500, 100,100, this.gameSize.h, this.gameSize))
+        this.wall.push(new Wall(this.ctx, 500, 450, 100, 200, this.gameSize.w, this.gameSize.h, this.gameSize))
+        this.wall.push(new Wall(this.ctx, 500, 200, 100,100, this.gameSize.h, this.gameSize))
+        this.wall.push(new Wall(this.ctx, 700, 575, 100, 225, this.gameSize.h, this.gameSize))
+
     },
     createBullets() {
         this.bullets.push(new Bullets(this.ctx, this.player.playerPos.x, this.player.playerPos.y, 'orange', this.mousePosition));
@@ -225,7 +227,7 @@ const alienHack = {
         }, 500)
 
 
-        //setTimeout(() => { this.enemy[0].goHide() }, 4000)
+        setTimeout(() => { this.enemy[0].goHide() }, 4000)
 
     },
     enemyMove2() { // Y 600 enemy to G1 500 200
@@ -246,7 +248,7 @@ const alienHack = {
         }, 1000)
 
 
-        //setTimeout(() => { this.enemy[0].goHide() }, 4000)
+        setTimeout(() => { this.enemy[0].goHide() }, 4000)
 
     },
     enemyMove3() { // Player 400 - 500 enemy to 700 - 600
@@ -267,7 +269,7 @@ const alienHack = {
         }, 1000)
 
 
-        //setTimeout(() => { this.enemy[0].goHide() }, 4000)
+        setTimeout(() => { this.enemy[0].goHide() }, 4000)
 
     },
     enemyMove4() { // Player Y - 500 enemy to 1100 - 600
@@ -288,7 +290,7 @@ const alienHack = {
         }, 1000)
 
 
-        //setTimeout(() => { this.enemy[0].goHide() }, 4000)
+        setTimeout(() => { this.enemy[0].goHide() }, 4000)
 
     },
 
