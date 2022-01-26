@@ -9,7 +9,7 @@ class Enemy {
             w: 100,
             h: 100
         }
-        this.enemyImage = 'enemy.png'
+        this.enemyImage = 'alien.png'
         this.imageInstance = undefined
         this.gameSize = {
             w: gameWidth,

@@ -1,5 +1,5 @@
 class Player {
-    constructor(ctx, posX, posY, width, height, gameWidth, gameHeight) {
+    constructor(ctx, posX, posY, width, height, gameWidth, gameHeight, framesCounter) {
         this.ctx = ctx
         this.playerPos = {
             x: posX,
@@ -9,8 +9,16 @@ class Player {
             w: 100,
             h: 200
         }
-        this.playerImage = 'player.png'
+        this.playerImage = 'playerSprite1.png'
+        
+        
+        // this.image.frames = 3;
+        // this.image.framesIndex = 0;
+        
+        
+        
         this.imageInstance = undefined
+
         this.gameSize = {
             w: gameWidth,
             h: gameHeight
@@ -19,18 +27,45 @@ class Player {
         this.lives = 5
         this.speed = 100
         this.bullets = [];
+        this.framesCounter = framesCounter
     }
 
     init() {
         this.imageInstance = new Image()
         this.imageInstance.src = `img/${this.playerImage}`
+
         this.draw()
         this.move()
     }
 
     draw() {
-        this.ctx.drawImage(this.imageInstance, this.playerPos.x, this.playerPos.y, this.playerSize.w, this.playerSize.h)
+        this.ctx.drawImage(
+            this.imageInstance,
+            
+            
+            
+            // this.image.framesIndex * (this.image.width / this.image.frames),
+            // 0,
+            // this.image.width / this.image.frames,
+            // this.image.height,
+
+
+
+            this.playerPos.x,
+            this.playerPos.y,
+            this.playerSize.w,
+            this.playerSize.h)
+        
+        // this.animate(framesCounter)
     }
+    // animate(framesCounter) {
+    //     if (framesCounter % 5 == 0) {
+    //         this.image.framesIndex++;
+    //     }
+    //     if (this.image.framesIndex >= this.image.frames) {
+    //         this.image.framesIndex = 0;
+    //     }
+    // }
 
     frameCollision() {
         if (this.playerPos.x + this.speed > 1201) {
