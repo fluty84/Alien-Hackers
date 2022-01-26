@@ -51,8 +51,8 @@ const alienHack = {
         this.enemy.push(new Enemy(this.ctx, 800, 300, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize))
     },
     createWall() {
-        this.wall.push(new Wall(this.ctx, 500, 400, 100, 100, this.gameSize.w, this.gameSize.h, this.gameSize))
-        this.wall.push(new Wall(this.ctx, 500, 500, 100,100, this.gameSize.h, this.gameSize))
+        this.wall.push(new Wall(this.ctx, 500, 400, 100, 200, this.gameSize.w, this.gameSize.h, this.gameSize))
+        //this.wall.push(new Wall(this.ctx, 500, 500, 100,100, this.gameSize.h, this.gameSize))
     },
     createBullets() {
         this.bullets.push(new Bullets(this.ctx, this.player.playerPos.x, this.player.playerPos.y, 'orange', this.mousePosition));

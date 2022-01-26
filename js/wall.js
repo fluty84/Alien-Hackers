@@ -9,7 +9,7 @@ class Wall {
             w: Width,
             h: Height
         }
-        this.wallImage = 'wall.png'
+        this.wallImage = 'barricade.png'
         this.imageInstance = undefined
         this.gameSize = {
             w: gameWidth,
