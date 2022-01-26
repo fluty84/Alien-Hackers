@@ -32,28 +32,26 @@ class Bullets {
 
 }
 
-// class EnemyBullets extends Bullets {
-//     constructor(ctx, playerPosX, playerPosY,enemyPosX, enemyPosY, color){
-//     super(ctx, playerPosX, playerPosY, color)
+class EnemyBullets extends Bullets {
+    constructor(ctx, playerPosX, playerPosY,enemyPosX, enemyPosY, color){
+    super(ctx, playerPosX, playerPosY, color)
     
-//     this.playerPosX = playerPosX
-//     this.playerPosY = playerPosY
-//     this.enemyPosX = enemyPosX
-//     this.enemyPosY = enemyPosY
-//     this.posX = enemyPosX + 51
-//     this.posY = enemyPosY - 50
+    this.playerPosX = playerPosX
+    this.playerPosY = playerPosY
+    this.enemyPosX = enemyPosX
+    this.enemyPosY = enemyPosY
+    this.posX = enemyPosX 
+    this.posY = enemyPosY + 50
+    this.orgX = enemyPosX
+    this.orgY = enemyPosY
     
-// }
-//     move(){
-        
-//         console.log("donde coño "+this.playerPosX, this.playerPosY)
-//         if (this.enemyPosY < this.playerPosY && this.enemyPosX < this.playerPosX) {
-//             this.posX += 150
-//             this.posY += 150
-//         } else if (this.enemyPosX > this.playerPosX && this.enemyPosY > this.playerPosY) {
-//             this.posX -= 150
-//             this.posY -= 150
-//         }
+}
+    move(){
+
+        console.log(this.orgX)
+        this.posX += (this.playerPosX - this.orgX) * 0.2
+        this.posY += (this.playerPosY + 50 - this.orgY) * 0.2
+       
  
-//     }
-// }
+    }
+}

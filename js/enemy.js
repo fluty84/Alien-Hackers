@@ -30,15 +30,15 @@ class Enemy {
 
     goHide() { //enemy to K4 900 500
 
-        if (this.enemyPos.x < 900 && this.enemyPos.y < 500) {
+        if (this.enemyPos.x < 700 && this.enemyPos.y < 500) {
             this.enemyPos.x += 50
             this.enemyPos.y += 50
-        } else if (this.enemyPos.x > 900 && this.enemyPos.y > 500) {
+        } else if (this.enemyPos.x > 700 && this.enemyPos.y > 500) {
             this.enemyPos.x -= 50
             this.enemyPos.y -= 50
         } else {
             //alienHack.enemyBullets()
-            console.log('me escondo')
+           // console.log('me escondo')
         }
 
     }
