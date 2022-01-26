@@ -167,7 +167,7 @@ const alienHack = {
         return this.bullets.some(elm => {
             if (this.player.playerPos.x < elm.posX + 20 &&
                 this.player.playerPos.x + this.player.playerSize.w > elm.posX &&
-                this.player.playerPos.y < elm.posY &&
+                this.player.playerPos.y < elm.posY +20 &&
                 this.player.playerSize.h + this.player.playerPos.y > elm.posY) {
                 console.error('BUM')
                 this.bullets = []
