@@ -67,13 +67,13 @@ const alienHack = {
             this.background.draw()
             this.gameBoard.draw()
             this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
-            
             this.enemyObjetives()
             this.enemyCollision()
             this.player.frameCollision()
             this.wallCollision()
             this.bulletCollisionW()
             this.bulletCollisionE()
+            this.bulletCollisionP()
             this.bullets.forEach(elm => elm.draw())
             this.enemy.forEach(elm => elm.draw())
             this.wall.forEach(elm => elm.draw())
@@ -94,6 +94,9 @@ const alienHack = {
     clearBullets() {
         this.bullets = this.bullets.filter(elm => elm.posX <= this.gameSize.w)
 
+
+//////////////////////////////////////////// COLISIONES //////////////////////////////
+    
     },
     enemyCollision() {
         return this.enemy.some(elm => {
@@ -161,8 +164,23 @@ const alienHack = {
             }
         })
     },
+    bulletCollisionP() {
+        return this.bullets.some(elm => {
+            if (this.player.playerPos.x < elm.posX &&
+                this.player.playerPos.x + this.player.playerSize.w > elm.posX &&
+                this.player.playerPos.y < elm.posY &&
+                this.player.playerSize.h + this.player.playerPos.y > elm.posY) {
+                this.bullets = []
+                this.player.lives--
+                if (this.player.lives === 0) {
+                    alert('Estoy morido')
+                }
+                return true
+            }
+        })
+    },
 
-
+     /////////////////////////////////////////////// MOVEMENTS////////////////////////////////////////////
 
     enemyObjetives() {
         if (this.player.playerPos.x === 200 && this.player.playerPos.y === 400) {
@@ -172,6 +190,12 @@ const alienHack = {
             this.enemyMove2()
         }
     },
+
+
+
+
+
+   
     enemyMove1() { // 3D 200 400 enemy to G1 500 200
 
         setTimeout(() => {
@@ -216,7 +240,7 @@ const alienHack = {
     },
 
 
-
+/////////////////////////Shooots////////////////////////////////////////////
     shoot() {
         document.querySelector('#myCanvas').addEventListener('click', event => {
             this.createBullets()
