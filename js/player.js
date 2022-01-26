@@ -34,36 +34,37 @@ class Player {
 
     frameCollision() {
         if (this.playerPos.x + this.speed > 1201) {
-           
+
             return true
         } else if (this.playerPos.x + this.speed < 99) {
-           
+
             return true
         } else if (this.playerPos.y < 99) {
-            
+
             return true
         } else if (this.playerPos.y > 602) {
-           
+
             return true
         } else {
             return false
         }
     }
-    
+
     move() {
         document.addEventListener('keydown', event => {
+
             const { key } = event
             switch (key) {
                 case 'w':
                     this.playerPos.y -= this.speed
-                    if (this.frameCollision() || alienHack.enemyCollision() || alienHack.wallCollision())  {
+                    if (this.frameCollision() || alienHack.enemyCollision() || alienHack.wallCollision()) {
                         this.playerPos.y += this.speed
                         return "up collision"
                     }
                     break;
                 case 's':
                     this.playerPos.y += this.speed
-                    if (this.frameCollision() || alienHack.enemyCollision()|| alienHack.wallCollision()) {
+                    if (this.frameCollision() || alienHack.enemyCollision() || alienHack.wallCollision()) {
                         this.playerPos.y -= this.speed
                         return "down collision"
                     }
@@ -86,5 +87,5 @@ class Player {
 
         })
     }
-    
+
 }

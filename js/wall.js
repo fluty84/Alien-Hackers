@@ -15,7 +15,7 @@ class Wall {
             w: gameWidth,
             h: gameHeight
         }
-        this.lives = 100
+        this.lives = 50
         this.playerPos = playerPos
         this.init()
     }

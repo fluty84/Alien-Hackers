@@ -80,6 +80,7 @@ const alienHack = {
             this.enemyIntervalShoot()
             this.clearBullets()
             this.player.draw()
+
         }, 40)
     },
     clearAll() {
@@ -95,10 +96,10 @@ const alienHack = {
         this.bullets = this.bullets.filter(elm => elm.posX <= this.gameSize.w)
 
 
-//////////////////////////////////////////// COLISIONES //////////////////////////////
-    
+        //////////////////////////////////////////// COLLISIONS/////////////////////////// //////////////////////////////
+
     },
-    enemyCollision() {
+    enemyCollision() {   ////PLAYER VS ENEMY
         return this.enemy.some(elm => {
             //console.log(this.player.playerPos, elm.enemyPos)
             if (
@@ -112,7 +113,7 @@ const alienHack = {
 
         })
     },
-    wallCollision() {
+    wallCollision() {  ////PLAYER VS WALL
 
         return this.wall.some(elm => {
             //console.log(this.player.playerPos, elm.wallPos)
@@ -122,12 +123,11 @@ const alienHack = {
                 this.player.playerPos.y < elm.wallPos.y + elm.wallSize.h &&
                 this.player.playerSize.h + this.player.playerPos.y > elm.wallPos.y
             ) {
-                console.log('collision')
                 return true
             }
         })
     },
-    bulletCollisionW() {
+    bulletCollisionW() { ///// BULLETS VS WALL
         return this.bullets.some(elm => {
             //console.log(this.wall.wallPos, elm.posX)
 
@@ -137,7 +137,6 @@ const alienHack = {
                     this.wall[i].wallPos.y < elm.posY &&         //Abajo
                     this.wall[i].wallSize.h + this.wall[i].wallPos.y > elm.posY              //Derecha
                 ) {
-                    console.log('pun')
                     this.bullets = []
                     return true
                 }
@@ -147,10 +146,10 @@ const alienHack = {
 
     },
 
-    bulletCollisionE() {
+    bulletCollisionE() { //// BULLETS VS ENEMY
         return this.bullets.some(elm => {
             for (let i = 0; i < this.enemy.length; i++) { //// si sobra tiempo ForEEECH
-                if (this.enemy[i].enemyPos.x < elm.posX &&
+                if (this.enemy[i].enemyPos.x < elm.posX  &&
                     this.enemy[i].enemyPos.x + this.enemy[i].enemySize.w > elm.posX &&
                     this.enemy[i].enemyPos.y < elm.posY &&
                     this.enemy[i].enemySize.h + this.enemy[i].enemyPos.y > elm.posY) {
@@ -164,12 +163,13 @@ const alienHack = {
             }
         })
     },
-    bulletCollisionP() {
+    bulletCollisionP() { ///// BULLETS VS PLAYER
         return this.bullets.some(elm => {
-            if (this.player.playerPos.x < elm.posX &&
+            if (this.player.playerPos.x < elm.posX + 20 &&
                 this.player.playerPos.x + this.player.playerSize.w > elm.posX &&
                 this.player.playerPos.y < elm.posY &&
                 this.player.playerSize.h + this.player.playerPos.y > elm.posY) {
+                console.error('BUM')
                 this.bullets = []
                 this.player.lives--
                 if (this.player.lives === 0) {
@@ -180,7 +180,13 @@ const alienHack = {
         })
     },
 
-     /////////////////////////////////////////////// MOVEMENTS////////////////////////////////////////////
+    // if(rect1.x < rect2.x + rect2.width &&
+    //     rect1.x + rect1.width > rect2.x &&
+    //     rect1.y < rect2.y + rect2.height &&
+    //     rect1.height + rect1.y > rect2.y) {
+    // // ¡colision detectada!
+
+    /////////////////////////////////////////////// MOVEMENTS////////////////////////////////////////////
 
     enemyObjetives() {
         if (this.player.playerPos.x === 200 && this.player.playerPos.y === 400) {
@@ -189,18 +195,23 @@ const alienHack = {
         if (this.player.playerPos.x <= 500 && this.player.playerPos.y === 600) { //if player down 500 and in his field
             this.enemyMove2()
         }
+        if (this.player.playerPos.x === 400 && this.player.playerPos.y === 500) { //if player 400 500 enemy 600 600a
+            this.enemyMove3()
+        }
+        if (this.player.playerPos.x <= 500 && this.player.playerPos.y === 500) { //if player down 500 and in his field
+            this.enemyMove4()
+        }
     },
 
 
 
 
 
-   
+
     enemyMove1() { // 3D 200 400 enemy to G1 500 200
 
         setTimeout(() => {
             this.enemy.forEach(elm => {
-                //alert('the fulminooo')
 
                 if (elm.enemyPos.x < 500 && elm.enemyPos.y < 200) {
                     elm.enemyPos.x += 50
@@ -214,7 +225,7 @@ const alienHack = {
         }, 500)
 
 
-        setTimeout(() => { this.enemy[0].goHide() }, 4000)
+        //setTimeout(() => { this.enemy[0].goHide() }, 4000)
 
     },
     enemyMove2() { // Y 600 enemy to G1 500 200
@@ -235,12 +246,56 @@ const alienHack = {
         }, 1000)
 
 
-        setTimeout(() => { this.enemy[0].goHide() }, 4000)
+        //setTimeout(() => { this.enemy[0].goHide() }, 4000)
+
+    },
+    enemyMove3() { // Player 400 - 500 enemy to 700 - 600
+
+        setTimeout(() => {
+            this.enemy.forEach(elm => {
+                //alert('the fulminooo')
+
+                if (elm.enemyPos.x < 700 && elm.enemyPos.y < 600) {
+                    elm.enemyPos.x += 50
+                    elm.enemyPos.y += 50
+                } else if (elm.enemyPos.x > 700 && elm.enemyPos.y > 600) {
+                    elm.enemyPos.x -= 50
+                    elm.enemyPos.y -= 50
+                }
+            })
+
+        }, 1000)
+
+
+        //setTimeout(() => { this.enemy[0].goHide() }, 4000)
+
+    },
+    enemyMove4() { // Player Y - 500 enemy to 1100 - 600
+
+        setTimeout(() => {
+            this.enemy.forEach(elm => {
+                //alert('the fulminooo')
+
+                if (elm.enemyPos.x < 1100 && elm.enemyPos.y < 600) {
+                    elm.enemyPos.x += 50
+                    elm.enemyPos.y += 50
+                } else if (elm.enemyPos.x > 1100 && elm.enemyPos.y > 600) {
+                    elm.enemyPos.x -= 50
+                    elm.enemyPos.y -= 50
+                }
+            })
+
+        }, 1000)
+
+
+        //setTimeout(() => { this.enemy[0].goHide() }, 4000)
 
     },
 
 
-/////////////////////////Shooots////////////////////////////////////////////
+
+
+    /////////////////////////Shooots////////////////////////////////////////////
     shoot() {
         document.querySelector('#myCanvas').addEventListener('click', event => {
             this.createBullets()
@@ -253,7 +308,7 @@ const alienHack = {
         })
     },
 
-   
+
     enemyIntervalShoot() {
         if (this.framesCounter % 20 === 0) {
             this.enemyBullets()
