@@ -166,6 +166,8 @@ const alienHack = {
                     this.enemy[i].lives--
                     if (this.enemy[i].lives === 0) {
                         this.enemy = []
+                        alert('You Win')
+                        location.reload()
                     }
                     return true
                 }
@@ -183,6 +185,7 @@ const alienHack = {
                 this.player.lives--
                 if (this.player.lives === 0) {
                     alert('Estoy morido')
+                    location.reload()
                 }
                 return true
             }
