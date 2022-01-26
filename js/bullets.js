@@ -6,6 +6,8 @@ class Bullets {
         this.radius = 10
         this.color = color
         this.mousePos = mousePos
+        this.orgX = this.posX
+        this.orgY = this.posY
         
     }
   
@@ -22,8 +24,8 @@ class Bullets {
     }
   
     move() {
-        this.posX += 120
-        this.posY += 0
+        this.posX += (this.mousePos.x - this.orgX)*0.1
+        this.posY += (this.mousePos.y - this.orgY)*0.1
     }
 
     

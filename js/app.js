@@ -167,6 +167,9 @@ const alienHack = {
         if (this.player.playerPos.x === 200 && this.player.playerPos.y === 400) {
             this.enemyMove1()
         }
+        if (this.player.playerPos.x <= 500 && this.player.playerPos.y === 600) { //if player down 500 and in his field
+            this.enemyMove2()
+        }
     },
     enemyMove1() { // 3D 200 400 enemy to G1 500 200
 
@@ -183,6 +186,27 @@ const alienHack = {
                 }
             })
 
+        }, 500)
+
+
+        setTimeout(() => { this.enemy[0].goHide() }, 4000)
+
+    },
+    enemyMove2() { // Y 600 enemy to G1 500 200
+
+        setTimeout(() => {
+            this.enemy.forEach(elm => {
+                //alert('the fulminooo')
+
+                if (elm.enemyPos.x < 1000 && elm.enemyPos.y < 600) {
+                    elm.enemyPos.x += 50
+                    elm.enemyPos.y += 50
+                } else if (elm.enemyPos.x > 1000 && elm.enemyPos.y > 600) {
+                    elm.enemyPos.x -= 50
+                    elm.enemyPos.y -= 50
+                }
+            })
+
         }, 1000)
 
 
@@ -193,7 +217,7 @@ const alienHack = {
 
 
     shoot() {
-        document.addEventListener('click', event => {
+        document.querySelector('#myCanvas').addEventListener('click', event => {
             this.createBullets()
             this.mouseX = event.clientX
             this.mouseY = event.clientY
@@ -204,16 +228,7 @@ const alienHack = {
         })
     },
 
-    getMousePosition() {
-        document.querySelector('#myCanvas').addEventListener('mousemove', event => {
-
-            this.mouseX = event.clientX
-            this.mouseY = event.clientY
-
-
-        });
-
-    },
+   
     enemyIntervalShoot() {
         if (this.framesCounter % 20 === 0) {
             this.enemyBullets()
