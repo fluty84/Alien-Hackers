@@ -37,7 +37,8 @@ class Enemy {
             this.enemyPos.x -= 50
             this.enemyPos.y -= 50
         } else {
-            alienHack.enemyBullets()
+            //alienHack.enemyBullets()
+            console.log('me escondo')
         }
 
     }

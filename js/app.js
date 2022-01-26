@@ -23,7 +23,7 @@ const alienHack = {
         this.createWall()
         this.drawAll()
         this.shoot()
-        this.enemyIntervalShoot()
+        //this.enemyIntervalShoot()
     },
     setContext() {
         this.ctx = document.querySelector('#myCanvas').getContext('2d')
@@ -66,7 +66,7 @@ const alienHack = {
             this.background.draw()
             this.gameBoard.draw()
             this.framesCounter > 5000 ? this.framesCounter = 0 : this.framesCounter++
-            this.enemyIntervalShoot()
+            //this.enemyIntervalShoot()
             this.enemyObjetives()
             this.enemyCollision()
             this.player.frameCollision()
