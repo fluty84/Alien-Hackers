@@ -13,6 +13,7 @@ const alienHack = {
     enemy: [],
     wall: [],
     bullets: [],
+    mousePosition: { x: 555, y: 666 },
     init() {
         this.setContext()
         this.setSize()
@@ -54,7 +55,7 @@ const alienHack = {
         // this.wall.push(new Wall(this.ctx, 900, 600, this.gameSize.w, this.gameSize.h, this.gameSize))ss
     },
     createBullets() {
-        this.bullets.push(new Bullets(this.ctx, this.player.playerPos.x, this.player.playerPos.y, 'orange'));
+        this.bullets.push(new Bullets(this.ctx, this.player.playerPos.x, this.player.playerPos.y, 'orange', this.mousePosition));
 
     },
     enemyBullets() {
@@ -95,7 +96,7 @@ const alienHack = {
     },
     enemyCollision() {
         return this.enemy.some(elm => {
-            console.log(this.player.playerPos, elm.enemyPos)
+            //console.log(this.player.playerPos, elm.enemyPos)
             if (
                 this.player.playerPos.x < elm.enemyPos.x + elm.enemySize.w &&                                    //Izquierda
                 this.player.playerPos.x + this.player.playerSize.w > elm.enemyPos.x &&   //Arriba
@@ -110,7 +111,7 @@ const alienHack = {
     wallCollision() {
 
         return this.wall.some(elm => {
-            console.log(this.player.playerPos, elm.wallPos)
+            //console.log(this.player.playerPos, elm.wallPos)
             if (
                 this.player.playerPos.x < elm.wallPos.x + elm.wallSize.w &&                                    //Izquierda
                 this.player.playerPos.x + this.player.playerSize.w > elm.wallPos.x &&
@@ -124,7 +125,7 @@ const alienHack = {
     },
     bulletCollisionW() {
         return this.bullets.some(elm => {
-            console.log(this.wall.wallPos, elm.posX)
+            //console.log(this.wall.wallPos, elm.posX)
 
             for (let i = 0; i < this.wall.length; i++) { //// si sobra tiempo ForEEECH
                 if (this.wall[i].wallPos.x < elm.posX &&                                    //Izquierda
@@ -184,7 +185,7 @@ const alienHack = {
 
         }, 1000)
 
-       
+
         setTimeout(() => { this.enemy[0].goHide() }, 4000)
 
     },
@@ -192,14 +193,30 @@ const alienHack = {
 
 
     shoot() {
-        document.addEventListener('keydown', event => {
-            const { key } = event
-            key === ' ' ? this.createBullets() : null
+        document.addEventListener('click', event => {
+            this.createBullets()
+            this.mouseX = event.clientX
+            this.mouseY = event.clientY
+
+            this.mousePosition.x = this.mouseX
+            this.mousePosition.y = this.mouseY
+
         })
     },
 
-    enemyIntervalShoot(){
-        if(this.framesCounter % 20 === 0){
-            this.enemyBullets()}
+    getMousePosition() {
+        document.querySelector('#myCanvas').addEventListener('mousemove', event => {
+
+            this.mouseX = event.clientX
+            this.mouseY = event.clientY
+
+
+        });
+
+    },
+    enemyIntervalShoot() {
+        if (this.framesCounter % 20 === 0) {
+            this.enemyBullets()
+        }
     }
 }
