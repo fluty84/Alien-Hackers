@@ -7,6 +7,7 @@ const alienHack = {
     ctx: undefined,
     FPS: 60,
     framesCounter: 0,
+    intro: undefined,
     background: undefined,
     gameBoard: undefined,
     player: undefined,
@@ -16,16 +17,17 @@ const alienHack = {
     bullets: [],
     mousePosition: { x: 555, y: 666 },
     audio: undefined,
+    image: undefined,
     init() {
         this.setContext()
         this.setSize()
-        this.audioGame()
+        this.createIntro()
+        this.start()
         this.createBackGround()
         this.createGameboard()
         this.createPlayer()
         this.createEnemy()
         this.createWall()
-        this.drawAll()
         this.shoot()
     },
     setContext() {
@@ -40,19 +42,22 @@ const alienHack = {
         document.querySelector('#myCanvas').setAttribute('width', this.gameSize.w)
         document.querySelector('#myCanvas').setAttribute('height', this.gameSize.h)
     },
-    audioGame(){
-        document.addEventListener("keydown", () => {
-        
-        this.audio = document.querySelector('.music')
-        this.audio.play()
-        
-    })
-
+    start() {
+        this.intro.draw()
+        document.addEventListener("keydown", event => {
+            const keyname = event.key
+            if (keyname === 'Enter') {
+                this.drawAll()
+                this.audio = document.querySelector('.music')
+                this.audio.play()
+            }
+        })
     },
-
-   
    
     /////////////////////// INSTANCIAS ///////////////////////////////
+    createIntro() {
+        this.intro = new Intro(this.ctx, 0, 0, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
+    },
     createBackGround() {
         this.background = new Background(this.ctx, 0, 0, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
@@ -119,7 +124,7 @@ const alienHack = {
         this.bullets = this.bullets.filter(elm => elm.posX <= this.gameSize.w)
     },
 
-    //////////////////////////////////////////// COLLISIONS/////////////////////////////////////////////////
+    ////////////////////////////////// COLLISIONS//////////////////////////////////////
     enemyCollision() {   ////PLAYER VS ENEMY
         return this.enemy.some(elm => {
             if (
@@ -147,24 +152,21 @@ const alienHack = {
             }
         })
     },
-    
     ufoCollisionB() {   ////UFO VS PLAYER BULLETS
         return this.bullets.some(elm => {
-            //console.log(this.wall.wallPos, elm.posX)
-            for (let i = 0; i < this.ufos.length; i++) { //// si sobra tiempo ForEEECH
-                if (this.ufos[i].enemyPos.x < elm.posX &&                                    //Izquierda
-                    this.ufos[i].enemyPos.x + this.ufos[i].enemySize.w > elm.posX &&   //Arriba
-                    this.ufos[i].enemyPos.y < elm.posY &&         //Abajo
-                    this.ufos[i].enemySize.h + this.ufos[i].enemyPos.y > elm.posY              //Derecha
+            for (let i = 0; i < this.ufos.length; i++) {
+                if (this.ufos[i].enemyPos.x < elm.posX &&
+                    this.ufos[i].enemyPos.x + this.ufos[i].enemySize.w > elm.posX &&
+                    this.ufos[i].enemyPos.y < elm.posY &&
+                    this.ufos[i].enemySize.h + this.ufos[i].enemyPos.y > elm.posY
                 ) {
                     this.bullets = []
                     this.ufos = []
                     return true
                 }
             }
-        })//final bucle some
+        })
     },
-
     wallCollision() {  ////PLAYER VS WALL
         return this.wall.some(elm => {
             if (
@@ -179,12 +181,11 @@ const alienHack = {
     },
     bulletCollisionW() { ///// BULLETS VS WALL
         return this.bullets.some(elm => {
-            //console.log(this.wall.wallPos, elm.posX)
-            for (let i = 0; i < this.wall.length; i++) { //// si sobra tiempo ForEEECH
-                if (this.wall[i].wallPos.x < elm.posX &&                                    //Izquierda
-                    this.wall[i].wallPos.x + this.wall[i].wallSize.w > elm.posX &&   //Arriba
-                    this.wall[i].wallPos.y < elm.posY &&         //Abajo
-                    this.wall[i].wallSize.h + this.wall[i].wallPos.y > elm.posY              //Derecha
+            for (let i = 0; i < this.wall.length; i++) {
+                if (this.wall[i].wallPos.x < elm.posX &&
+                    this.wall[i].wallPos.x + this.wall[i].wallSize.w > elm.posX &&
+                    this.wall[i].wallPos.y < elm.posY &&
+                    this.wall[i].wallSize.h + this.wall[i].wallPos.y > elm.posY
                 ) {
                     this.bullets = []
                     return true
@@ -194,7 +195,7 @@ const alienHack = {
     },
     bulletCollisionE() { //// BULLETS VS ENEMY
         return this.bullets.some(elm => {
-            for (let i = 0; i < this.enemy.length; i++) { //// si sobra tiempo ForEEECH
+            for (let i = 0; i < this.enemy.length; i++) {
                 if (this.enemy[i].enemyPos.x < elm.posX  &&
                     this.enemy[i].enemyPos.x + this.enemy[i].enemySize.w > elm.posX &&
                     this.enemy[i].enemyPos.y < elm.posY &&
@@ -228,24 +229,23 @@ const alienHack = {
             }
         })
     },
-    
 
-    /////////////////////////////////////////////// MOVEMENTS////////////////////////////////////////////
+    ///////////////////////////// MOVEMENTS///////////////////////////////////
     enemyObjetives() {
         if (this.player.playerPos.x === 200 && this.player.playerPos.y === 400) {
             this.enemyMove1()
         }
-        if (this.player.playerPos.x <= 500 && this.player.playerPos.y === 600) { //if player down 500 and in his field
+        if (this.player.playerPos.x <= 500 && this.player.playerPos.y === 600) {
             this.enemyMove2()
         }
-        if (this.player.playerPos.x === 400 && this.player.playerPos.y === 500) { //if player 400 500 enemy 600 600a
+        if (this.player.playerPos.x === 400 && this.player.playerPos.y === 500) {
             this.enemyMove3()
         }
-        if (this.player.playerPos.x <= 500 && this.player.playerPos.y === 500) { //if player down 500 and in his field
+        if (this.player.playerPos.x <= 500 && this.player.playerPos.y === 500) {
             this.enemyMove4()
         }
     },
-    enemyMove1() { // 3D 200 400 enemy to G1 500 200
+    enemyMove1() {
         setTimeout(() => {
             this.enemy.forEach(elm => {
                 if (elm.enemyPos.x < 500 && elm.enemyPos.y < 200) {
@@ -259,10 +259,9 @@ const alienHack = {
         }, 500)
         setTimeout(() => { this.enemy[0].goHide() }, 4000)
     },
-    enemyMove2() { // Y 600 enemy to G1 500 200
+    enemyMove2() {
         setTimeout(() => {
             this.enemy.forEach(elm => {
-                //alert('the fulminooo')
                 if (elm.enemyPos.x < 1000 && elm.enemyPos.y < 600) {
                     elm.enemyPos.x += 50
                     elm.enemyPos.y += 50
@@ -274,10 +273,9 @@ const alienHack = {
         }, 1000)
         setTimeout(() => { this.enemy[0].goHide() }, 4000)
     },
-    enemyMove3() { // Player 400 - 500 enemy to 700 - 600
+    enemyMove3() {
         setTimeout(() => {
             this.enemy.forEach(elm => {
-                //alert('the fulminooo')
                 if (elm.enemyPos.x < 700 && elm.enemyPos.y < 600) {
                     elm.enemyPos.x += 50
                     elm.enemyPos.y += 50
@@ -289,10 +287,9 @@ const alienHack = {
         }, 1000)
         setTimeout(() => { this.enemy[0].goHide() }, 4000)
     },
-    enemyMove4() { // Player Y - 500 enemy to 1100 - 600
+    enemyMove4() {
         setTimeout(() => {
             this.enemy.forEach(elm => {
-                //alert('the fulminooo')
                 if (elm.enemyPos.x < 1100 && elm.enemyPos.y < 600) {
                     elm.enemyPos.x += 50
                     elm.enemyPos.y += 50
