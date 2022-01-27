@@ -8,6 +8,8 @@ const alienHack = {
     FPS: 60,
     framesCounter: 0,
     intro: undefined,
+    gameWin: undefined,
+    gameOver: undefined,
     background: undefined,
     gameBoard: undefined,
     player: undefined,
@@ -22,6 +24,8 @@ const alienHack = {
         this.setContext()
         this.setSize()
         this.createIntro()
+        this.createGameWin()
+        this.createGameOver()
         this.start()
         this.createBackGround()
         this.createGameboard()
@@ -53,10 +57,33 @@ const alienHack = {
             }
         })
     },
+    win() {
+        clearInterval(this.interval)
+        this.clearAll()
+        this.enemy = []
+        this.wall = []
+        this.ufos = []
+        this.gameWin.draw()
+    },
+    loose() {
+        clearInterval(this.interval)
+        this.clearAll()
+        this.enemy = []
+        this.wall = []
+        this.ufos = []
+        this.player = undefined,
+        this.gameOver.draw()
+    },
    
     /////////////////////// INSTANCIAS ///////////////////////////////
     createIntro() {
         this.intro = new Intro(this.ctx, 0, 0, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
+    },
+    createGameWin() {
+        this.gameWin = new GameWin(this.ctx, 0, 0, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
+    },
+    createGameOver() {
+        this.gameOver = new GameOver(this.ctx, 0, 0, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
     createBackGround() {
         this.background = new Background(this.ctx, 0, 0, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
@@ -87,7 +114,7 @@ const alienHack = {
         this.bullets.push(new EnemyBullets(this.ctx, this.player.playerPos.x, this.player.playerPos.y, this.enemy[0].enemyPos.x, this.enemy[0].enemyPos.y, 'green'))
     },
     drawAll() {
-        setInterval(() => {
+         this.interval = setInterval(() => {
             this.clearAll()
             this.background.draw()
             this.gameBoard.draw()
@@ -145,7 +172,6 @@ const alienHack = {
                 this.player.playerPos.y < elm.enemyPos.y + elm.enemySize.h &&
                 this.player.playerSize.h + this.player.playerPos.y > elm.enemyPos.y
             ) {
-                console.error('BUM')
                 this.ufos = []
                 this.player.lives--
                 return true
@@ -191,7 +217,7 @@ const alienHack = {
                     return true
                 }
             }
-        })//final bucle some
+        })
     },
     bulletCollisionE() { //// BULLETS VS ENEMY
         return this.bullets.some(elm => {
@@ -202,10 +228,10 @@ const alienHack = {
                     this.enemy[i].enemySize.h + this.enemy[i].enemyPos.y > elm.posY) {
                     this.bullets = []
                     this.enemy[i].lives--
-                    if (this.enemy[i].lives === 0) {
+                    if (this.enemy[i].lives <= 0) {
                         this.enemy = []
-                        alert('You Win')
-                        location.reload()
+                        this.win()
+                        this.audio.pause()
                     }
                     return true
                 }
@@ -218,19 +244,18 @@ const alienHack = {
                 this.player.playerPos.x + this.player.playerSize.w > elm.posX &&
                 this.player.playerPos.y < elm.posY +20 &&
                 this.player.playerSize.h + this.player.playerPos.y > elm.posY) {
-                console.error('BUM')
                 this.bullets = []
                 this.player.lives--
-                if (this.player.lives === 0) {
-                    alert('Estoy morido')
-                    location.reload()
+                if (this.player.lives <= 0) {
+                    this.loose()
+                    this.audio.pause()
                 }
                 return true
             }
         })
     },
 
-    ///////////////////////////// MOVEMENTS///////////////////////////////////
+    //////////////////////////////// MOVEMENTS ///////////////////////////////////
     enemyObjetives() {
         if (this.player.playerPos.x === 200 && this.player.playerPos.y === 400) {
             this.enemyMove1()

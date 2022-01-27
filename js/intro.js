@@ -21,6 +21,12 @@ class Intro {
     }
 
     draw() {
-        this.imageInstance.onload = () => this.ctx.drawImage(this.imageInstance, this.introPos.x, this.introPos.y, this.introSize.w, this.introSize.h)
+        this.imageInstance.onload = () => this.ctx.drawImage(
+            this.imageInstance, 
+            this.introPos.x, 
+            this.introPos.y, 
+            this.introSize.w, 
+            this.introSize.h
+        )
     }
 }
