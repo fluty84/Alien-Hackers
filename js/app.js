@@ -82,6 +82,8 @@ const alienHack = {
             this.bulletCollisionW()
             this.bulletCollisionE()
             this.bulletCollisionP()
+            this.ufoCollisionP()
+            this.ufoCollisionB()
             this.bullets.forEach(elm => elm.draw())
             this.enemy.forEach(elm => elm.draw())
             this.wall.forEach(elm => elm.draw())
@@ -118,6 +120,39 @@ const alienHack = {
             }
         })
     },
+    ufoCollisionP() {   ////PLAYER VS UFO
+        return this.ufos.some(elm => {
+            if (
+                this.player.playerPos.x < elm.enemyPos.x + elm.enemySize.w &&
+                this.player.playerPos.x + this.player.playerSize.w > elm.enemyPos.x &&
+                this.player.playerPos.y < elm.enemyPos.y + elm.enemySize.h &&
+                this.player.playerSize.h + this.player.playerPos.y > elm.enemyPos.y
+            ) {
+                console.error('BUM')
+                this.ufos = []
+                this.player.lives--
+                return true
+            }
+        })
+    },
+    
+    ufoCollisionB() {   ////UFO VS PLAYER BULLETS
+        return this.bullets.some(elm => {
+            //console.log(this.wall.wallPos, elm.posX)
+            for (let i = 0; i < this.ufos.length; i++) { //// si sobra tiempo ForEEECH
+                if (this.ufos[i].enemyPos.x < elm.posX &&                                    //Izquierda
+                    this.ufos[i].enemyPos.x + this.ufos[i].enemySize.w > elm.posX &&   //Arriba
+                    this.ufos[i].enemyPos.y < elm.posY &&         //Abajo
+                    this.ufos[i].enemySize.h + this.ufos[i].enemyPos.y > elm.posY              //Derecha
+                ) {
+                    this.bullets = []
+                    this.ufos = []
+                    return true
+                }
+            }
+        })//final bucle some
+    },
+
     wallCollision() {  ////PLAYER VS WALL
         return this.wall.some(elm => {
             if (

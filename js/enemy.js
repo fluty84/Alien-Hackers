@@ -99,8 +99,8 @@ class Ufos extends Enemy {
 
     move(playerPosX, playerPosY) {
         console.log(playerPosX, playerPosY, this.enemyPos.x, this.enemyPos.y)
-        this.enemyPos.x += (playerPosX - this.enemyPos.x) * 0.2
-        this.enemyPos.y += (playerPosY - this.enemyPos.y) * 0.2
+        this.enemyPos.x += (playerPosX - this.enemyPos.x) * 0.05
+        this.enemyPos.y += (playerPosY - this.enemyPos.y) * 0.05
         console.log(`Me muevo a ${this.enemyPos.x} y ${this.enemyPos.y}`)
     }
 }
