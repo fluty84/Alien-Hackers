@@ -11,6 +11,7 @@ const alienHack = {
     gameBoard: undefined,
     player: undefined,
     enemy: [],
+    ufos: [],
     wall: [],
     bullets: [],
     mousePosition: { x: 555, y: 666 },
@@ -51,7 +52,11 @@ const alienHack = {
     },
     createEnemy() {
         this.enemy.push(new Enemy(this.ctx, 800, 300, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize))
-        this.enemy.push(new Enemy(this.ctx, 600, -300, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize))
+    },
+    createUfos() {
+        if (this.framesCounter % 100 === 0) {
+            this.ufos.push(new Ufos(this.ctx, 700, -300, this.gameSize.w, this.gameSize.h, this.gameSize))
+        }
     },
     createWall() {
         this.wall.push(new Wall(this.ctx, 500, 400, 100, 150, this.gameSize.w, this.gameSize.h, this.gameSize))
@@ -80,8 +85,10 @@ const alienHack = {
             this.bullets.forEach(elm => elm.draw())
             this.enemy.forEach(elm => elm.draw())
             this.wall.forEach(elm => elm.draw())
+            this.ufos.forEach(elm => elm.draw(this.player.playerPos.x, this.player.playerPos.y))
             this.enemyIntervalShoot()
             this.clearBullets()
+            this.createUfos()
             this.player.draw()
         }, 6000 / this.FPS)
     },
