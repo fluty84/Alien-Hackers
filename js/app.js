@@ -64,6 +64,9 @@ const alienHack = {
         this.wall = []
         this.ufos = []
         this.gameWin.draw()
+        setTimeout(() => {
+           location.reload() 
+        }, 5000);
     },
     loose() {
         clearInterval(this.interval)
@@ -73,6 +76,9 @@ const alienHack = {
         this.ufos = []
         this.player = undefined,
         this.gameOver.draw()
+        setTimeout(() => {
+            location.reload()
+        }, 5000);
     },
    
     /////////////////////// INSTANCIAS ///////////////////////////////
