@@ -48,6 +48,7 @@ class Player {
         )
         this.animate()
     }
+    
     animate() {
         if (this.framesCounter % 200 == 0) {
             this.imageInstance.framesIndex++;

@@ -98,7 +98,18 @@ const alienHack = {
         this.gameBoard = new Gameboard(this.ctx, 0, 200, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
     createPlayer() {
-        this.player = new Player(this.ctx, 0, 100, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize, 100, this.framesCounter)
+        this.player = new Player(
+            this.ctx, 
+            0, 
+            100, 
+            0, 
+            0, 
+            this.gameSize.w,
+            this.gameSize.h, 
+            this.gameSize, 
+            100, 
+            this.framesCounter
+        )
     },
     createEnemy() {
         this.enemy.push(new Enemy(this.ctx, 800, 300, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize))
@@ -114,10 +125,23 @@ const alienHack = {
         this.wall.push(new Wall(this.ctx, 700, 575, 100, 225, this.gameSize.h, this.gameSize))
     },
     createBullets() {
-        this.bullets.push(new Bullets(this.ctx, this.player.playerPos.x, this.player.playerPos.y, 'orange', this.mousePosition));
+        this.bullets.push(new Bullets(
+            this.ctx, 
+            this.player.playerPos.x, 
+            this.player.playerPos.y, 
+            'orange', 
+            this.mousePosition)
+        );
     },
     enemyBullets() {
-        this.bullets.push(new EnemyBullets(this.ctx, this.player.playerPos.x, this.player.playerPos.y, this.enemy[0].enemyPos.x, this.enemy[0].enemyPos.y, 'green'))
+        this.bullets.push(new EnemyBullets(
+            this.ctx, 
+            this.player.playerPos.x, 
+            this.player.playerPos.y, 
+            this.enemy[0].enemyPos.x, 
+            this.enemy[0].enemyPos.y, 
+            'green')
+        )
     },
     drawAll() {
          this.interval = setInterval(() => {
@@ -207,7 +231,6 @@ const alienHack = {
                 this.player.playerPos.y < elm.wallPos.y + elm.wallSize.h &&
                 this.player.playerSize.h + this.player.playerPos.y > elm.wallPos.y
             ) {
-
                 return true
             }
         })

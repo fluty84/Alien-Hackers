@@ -69,7 +69,6 @@ class Ufos extends Enemy {
     init() {
         this.imageInstance = new Image()
         this.imageInstance.src = `img/${this.enemyImage}`
-        // this.draw()
     }
 
     draw(playerPosX, playerPosY) {

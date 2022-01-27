@@ -1,7 +1,9 @@
+/* Alien Hack Styles */
 * {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    box-sizing: border-box;
 }
 
 body {
@@ -10,21 +12,51 @@ body {
 }
 
 #myCanvas {
-    margin: 0 auto;
     display: block;
+    margin: 0 auto;
     cursor: url('./../img/target.png'), auto;
-    border-radius: 50px;
+    border-radius: 40px;
+    width: 100%;
 }
 
 h1 {
-    margin: 50px auto;
-    text-align: center;
-    color: aliceblue;
-    font-size: 5em;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #f5f5f5;
+    font-size: 3em;
 }
 
-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+p {
+    color: #d5d5d5;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+a {
+    text-align: center;
+    text-decoration: none;
+    color: #d5d5d5;
+    font-size: 1.3em;
+}
+
+a:hover {
+    color: #fff;
+    transition: all 500ms ease-in-out;
+}
+
+.row {
+    padding: 1em;
+}
+
+.margin {
+    margin: 20px auto;
+}
+
+.card {
+    padding: 3em;
+    border-radius: 40px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.10);
+    background-color: rgba(0, 0, 0, 0.2);
 }

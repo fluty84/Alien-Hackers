@@ -38,6 +38,7 @@ class EnemyBullets extends Bullets {
         this.orgX = enemyPosX
         this.orgY = enemyPosY
     }
+    
     move() {
         this.posX += (this.playerPosX - this.orgX) * 0.2
         this.posY += (this.playerPosY + 50 - this.orgY) * 0.2
