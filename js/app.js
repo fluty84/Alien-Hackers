@@ -215,9 +215,9 @@ const alienHack = {
     bulletCollisionW() { ///// BULLETS VS WALL
         return this.bullets.some(elm => {
             for (let i = 0; i < this.wall.length; i++) {
-                if (this.wall[i].wallPos.x < elm.posX &&
+                if (this.wall[i].wallPos.x < elm.posX +20 &&
                     this.wall[i].wallPos.x + this.wall[i].wallSize.w > elm.posX &&
-                    this.wall[i].wallPos.y < elm.posY &&
+                    this.wall[i].wallPos.y < elm.posY +20 &&
                     this.wall[i].wallSize.h + this.wall[i].wallPos.y > elm.posY
                 ) { 
                     this.wall[i].lives--
