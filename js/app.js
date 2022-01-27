@@ -103,8 +103,8 @@ const alienHack = {
         }
     },
     createWall() {
-        this.wall.push(new Wall(this.ctx, 500, 400, 100, 150, this.gameSize.w, this.gameSize.h, this.gameSize))
-        this.wall.push(new Wall(this.ctx, 500, 150, 100,100, this.gameSize.h, this.gameSize))
+        this.wall.push(new Wall(this.ctx, 500, 400, 100, 100, this.gameSize.w, this.gameSize.h, this.gameSize))
+        this.wall.push(new Wall(this.ctx, 500, 150, 100,190, this.gameSize.h, this.gameSize))
         this.wall.push(new Wall(this.ctx, 700, 575, 100, 225, this.gameSize.h, this.gameSize))
     },
     createBullets() {
@@ -201,6 +201,7 @@ const alienHack = {
                 this.player.playerPos.y < elm.wallPos.y + elm.wallSize.h &&
                 this.player.playerSize.h + this.player.playerPos.y > elm.wallPos.y
             ) {
+
                 return true
             }
         })
@@ -212,8 +213,11 @@ const alienHack = {
                     this.wall[i].wallPos.x + this.wall[i].wallSize.w > elm.posX &&
                     this.wall[i].wallPos.y < elm.posY &&
                     this.wall[i].wallSize.h + this.wall[i].wallPos.y > elm.posY
-                ) {
-                    this.bullets = []
+                ) { 
+                    this.wall[i].lives--
+                    if (this.wall[i].lives <= 0) {
+                        this.wall.splice(i,1)
+                        this.bullets = []}
                     return true
                 }
             }

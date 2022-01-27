@@ -20,8 +20,8 @@ class Bullets {
     }
 
     move() {
-        this.posX += (this.mousePos.x - this.orgX) * 0.2
-        this.posY += (this.mousePos.y - this.orgY) * 0.2
+        this.posX += (this.mousePos.x - this.orgX) * 0.1
+        this.posY += (this.mousePos.y - this.orgY) * 0.1
     }
 }
 
