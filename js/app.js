@@ -15,9 +15,11 @@ const alienHack = {
     wall: [],
     bullets: [],
     mousePosition: { x: 555, y: 666 },
+    audio: undefined,
     init() {
         this.setContext()
         this.setSize()
+        this.audioGame()
         this.createBackGround()
         this.createGameboard()
         this.createPlayer()
@@ -38,6 +40,13 @@ const alienHack = {
         document.querySelector('#myCanvas').setAttribute('width', this.gameSize.w)
         document.querySelector('#myCanvas').setAttribute('height', this.gameSize.h)
     },
+    audioGame(){
+        
+        this.audio = document.querySelector('.music')
+        this.audio.play()
+
+    },
+
    
    
     /////////////////////// INSTANCIAS ///////////////////////////////
