@@ -41,9 +41,12 @@ const alienHack = {
         document.querySelector('#myCanvas').setAttribute('height', this.gameSize.h)
     },
     audioGame(){
+        document.addEventListener("keydown", () => {
         
         this.audio = document.querySelector('.music')
         this.audio.play()
+        
+    })
 
     },
 
