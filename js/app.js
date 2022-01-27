@@ -238,6 +238,7 @@ const alienHack = {
                     this.enemy[i].enemySize.h + this.enemy[i].enemyPos.y > elm.posY) {
                     this.bullets = []
                     this.enemy[i].lives--
+                    this.enemy[i].goHide()
                     if (this.enemy[i].lives <= 0) {
                         this.enemy = []
                         this.win()
