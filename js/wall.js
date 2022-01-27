@@ -1,5 +1,5 @@
 class Wall {
-    constructor(ctx, posX, posY, Width, Height,gameWidth,gameHeight, playerPos) {
+    constructor(ctx, posX, posY, Width, Height, gameWidth, gameHeight, playerPos) {
         this.ctx = ctx
         this.wallPos = {
             x: posX,
@@ -23,7 +23,6 @@ class Wall {
     init() {
         this.imageInstance = new Image()
         this.imageInstance.src = `img/${this.wallImage}`
-        
     }
 
     draw() {

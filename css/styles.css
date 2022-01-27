@@ -12,7 +12,7 @@ body {
 #myCanvas {
     margin: 0 auto;
     display: block;
-    cursor: url(../img/target.png);
+    cursor: url('./../img/target.png'), auto;
 }
 
 h1 {

@@ -8,7 +8,6 @@ class Bullets {
         this.mousePos = mousePos
         this.orgX = this.posX
         this.orgY = this.posY
-
     }
 
     draw() {
@@ -18,17 +17,12 @@ class Bullets {
         this.ctx.fill()
         this.ctx.closePath()
         this.move()
-
-
     }
 
     move() {
-        this.posX += (this.mousePos.x - this.orgX) * 0.1
-        this.posY += (this.mousePos.y - this.orgY) * 0.1
+        this.posX += (this.mousePos.x - this.orgX) * 0.2
+        this.posY += (this.mousePos.y - this.orgY) * 0.2
     }
-
-
-
 }
 
 class EnemyBullets extends Bullets {
@@ -43,13 +37,9 @@ class EnemyBullets extends Bullets {
         this.posY = enemyPosY + 50
         this.orgX = enemyPosX
         this.orgY = enemyPosY
-
     }
     move() {
-
         this.posX += (this.playerPosX - this.orgX) * 0.2
         this.posY += (this.playerPosY + 50 - this.orgY) * 0.2
-
-
     }
 }

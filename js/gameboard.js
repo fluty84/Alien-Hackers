@@ -18,7 +18,6 @@ class Gameboard {
     init() {
         this.imageInstance = new Image()
         this.imageInstance.src = `img/${this.gmImage}`
-      
     }
 
     draw() {

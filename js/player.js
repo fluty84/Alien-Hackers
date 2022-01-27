@@ -1,5 +1,5 @@
 class Player {
-    constructor(ctx, posX, posY, width, height, gameWidth, gameHeight, framesCounter) {
+    constructor(ctx, posX, posY, gameWidth, gameHeight, framesCounter) {
         this.ctx = ctx
         this.playerPos = {
             x: posX,
@@ -9,16 +9,8 @@ class Player {
             w: 100,
             h: 200
         }
-        this.playerImage = 'playerSprite1.png'
-        
-        
-        // this.image.frames = 3;
-        // this.image.framesIndex = 0;
-        
-        
-        
+        this.playerImage = 'playerSprite.png'
         this.imageInstance = undefined
-
         this.gameSize = {
             w: gameWidth,
             h: gameHeight
@@ -28,67 +20,51 @@ class Player {
         this.speed = 100
         this.bullets = [];
         this.framesCounter = framesCounter
+        this.imageInstance.frames = 3;
+        this.imageInstance.framesIndex = 0;
+        this.width = 100;
+        this.height = 200;
     }
 
     init() {
         this.imageInstance = new Image()
         this.imageInstance.src = `img/${this.playerImage}`
-
         this.draw()
         this.move()
     }
 
     draw() {
-        
-        ////////////////////// testeando. borrar si no vale
-        let frameWidth = 100
-        let frameHeight = 200
-        let row = 1;
-        let column = 3;
-
-        this.ctx.drawImage(this.imageInstance, column * frameWidth, row * frameHeight, frameWidth, frameHeight, 100, 200, frameWidth, frameHeight);
-
-        //////////////////////
         this.ctx.drawImage(
             this.imageInstance,
-            
-            
-            
-            // this.image.framesIndex * (this.image.width / this.image.frames),
-            // 0,
-            // this.image.width / this.image.frames,
-            // this.image.height,
-
-
+            this.imageInstance.framesIndex * (this.imageInstance.width / this.imageInstance.frames),
+            0,
+            this.imageInstance.width / this.imageInstance.frames,
+            this.imageInstance.height,
 
             this.playerPos.x,
             this.playerPos.y,
             this.playerSize.w,
-            this.playerSize.h)
-        
-        // this.animate(framesCounter)
+            this.playerSize.h
+        )
+        this.animate()
     }
-    // animate(framesCounter) {
-    //     if (framesCounter % 5 == 0) {
-    //         this.image.framesIndex++;
-    //     }
-    //     if (this.image.framesIndex >= this.image.frames) {
-    //         this.image.framesIndex = 0;
-    //     }
-    // }
+    animate() {
+        if (this.framesCounter % 200 == 0) {
+            this.imageInstance.framesIndex++;
+        }
+        if (this.imageInstance.framesIndex >= this.imageInstance.frames) {
+            this.imageInstance.framesIndex = 0;
+        }
+    }
 
     frameCollision() {
         if (this.playerPos.x + this.speed > 1201) {
-
             return true
         } else if (this.playerPos.x + this.speed < 99) {
-
             return true
         } else if (this.playerPos.y < 99) {
-
             return true
         } else if (this.playerPos.y > 602) {
-
             return true
         } else {
             return false
@@ -97,7 +73,6 @@ class Player {
 
     move() {
         document.addEventListener('keydown', event => {
-
             const { key } = event
             switch (key) {
                 case 'w':
@@ -129,8 +104,6 @@ class Player {
                     }
                     break;
             }
-
         })
     }
-
 }
