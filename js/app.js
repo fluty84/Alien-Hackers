@@ -261,6 +261,7 @@ const alienHack = {
                     this.enemy[i].enemySize.h + this.enemy[i].enemyPos.y > elm.posY) {
                     this.bullets = []
                     this.enemy[i].lives--
+                    this.enemyLives()
                     this.enemy[i].goHide()
                     if (this.enemy[i].lives <= 0) {
                         this.enemy = []
@@ -280,6 +281,7 @@ const alienHack = {
                 this.player.playerSize.h + this.player.playerPos.y > elm.posY) {
                 this.bullets = []
                 this.player.lives--
+                this.playerLives()
                 if (this.player.lives <= 0) {
                     this.loose()
                     this.audio.pause()
@@ -287,6 +289,16 @@ const alienHack = {
                 return true
             }
         })
+    },
+    playerLives() {
+        const playerLife = document.querySelector('.player')
+        const playerIcon = document.querySelector('.player i')
+        playerLife.removeChild(playerIcon)
+    },
+    enemyLives() {
+        const enemyLife = document.querySelector('.enemy')
+        const enemyIcon = document.querySelector('.enemy i')
+        enemyLife.removeChild(enemyIcon)
     },
 
     //////////////////////////////// MOVEMENTS ///////////////////////////////////
