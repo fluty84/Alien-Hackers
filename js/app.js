@@ -19,7 +19,10 @@ const alienHack = {
     bullets: [],
     mousePosition: { x: 555, y: 666 },
     audio: undefined,
+    gun: undefined, 
+    laser: undefined,
     image: undefined,
+
     init() {
         this.setContext()
         this.setSize()
@@ -68,7 +71,7 @@ const alienHack = {
            location.reload() 
         }, 5000);
     },
-    loose() {
+    lose() {
         clearInterval(this.interval)
         this.clearAll()
         this.enemy = []
@@ -125,6 +128,7 @@ const alienHack = {
         this.wall.push(new Wall(this.ctx, 700, 575, 100, 225, this.gameSize.h, this.gameSize))
     },
     createBullets() {
+        
         this.bullets.push(new Bullets(
             this.ctx, 
             this.player.playerPos.x, 
@@ -283,7 +287,7 @@ const alienHack = {
                 this.player.lives--
                 this.playerLives()
                 if (this.player.lives <= 0) {
-                    this.loose()
+                    this.lose()
                     this.audio.pause()
                 }
                 return true
@@ -376,7 +380,13 @@ const alienHack = {
     /////////////////////////Shooots/////////////////////////////////
     shoot() {
         document.querySelector('#myCanvas').addEventListener('click', event => {
+            //instance Bullets
             this.createBullets()
+            //play Gun's Bullets Sound
+            this.gun = document.querySelector('.gun')
+            this.gun.play()
+            
+            //get Mouse position
             this.mouseX = event.clientX
             this.mouseY = event.clientY
 
@@ -387,6 +397,8 @@ const alienHack = {
     enemyIntervalShoot() {
         if (this.framesCounter % 20 === 0) {
             this.enemyBullets()
+            this.laser = document.querySelector('.laser')
+            this.laser.play()
         }
     }
 }
