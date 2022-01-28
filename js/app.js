@@ -49,6 +49,9 @@ const alienHack = {
         document.querySelector('#myCanvas').setAttribute('width', this.gameSize.w)
         document.querySelector('#myCanvas').setAttribute('height', this.gameSize.h)
     },
+    
+    //////////////////////////////EVENTS/////////////////////////////////////////////
+
     start() {
         this.intro.draw()
         document.addEventListener("keydown", event => {
@@ -84,7 +87,7 @@ const alienHack = {
         }, 5000);
     },
    
-    /////////////////////// INSTANCIAS ///////////////////////////////
+    /////////////////////// INSTANCE ///////////////////////////////
     createIntro() {
         this.intro = new Intro(this.ctx, 0, 0, 0, 0, this.gameSize.w, this.gameSize.h, this.gameSize)
     },
@@ -309,16 +312,26 @@ const alienHack = {
     enemyObjetives() {
         if (this.player.playerPos.x === 200 && this.player.playerPos.y === 400) {
             this.enemyMove1()
+            console.log('move1')
         }
         if (this.player.playerPos.x <= 500 && this.player.playerPos.y === 600) {
             this.enemyMove2()
+            console.log('move2')
         }
         if (this.player.playerPos.x === 400 && this.player.playerPos.y === 500) {
             this.enemyMove3()
+            console.log('move3')
         }
+        
         if (this.player.playerPos.x <= 500 && this.player.playerPos.y === 500) {
             this.enemyMove4()
+            console.log('move4')
         }
+        if (this.player.playerPos.x === 200 && this.player.playerPos.y === 200) {
+            this.enemyMove5()
+            console.log('move5')
+        }
+        
     },
     enemyMove1() {
         setTimeout(() => {
@@ -376,7 +389,20 @@ const alienHack = {
         }, 1000)
         setTimeout(() => { this.enemy[0].goHide() }, 4000)
     },
-
+    enemyMove5() {
+        setTimeout(() => {
+            this.enemy.forEach(elm => {
+                if (elm.enemyPos.x < 900 && elm.enemyPos.y < 100) {
+                    elm.enemyPos.x += 50
+                    elm.enemyPos.y += 50
+                } else if (elm.enemyPos.x > 900 && elm.enemyPos.y > 100) {
+                    elm.enemyPos.x -= 50
+                    elm.enemyPos.y -= 50
+                }
+            })
+        }, 1000)
+        setTimeout(() => { this.enemy[0].goHide() }, 4000)
+    },
     /////////////////////////Shooots/////////////////////////////////
     shoot() {
         document.querySelector('#myCanvas').addEventListener('click', event => {
